@@ -23,7 +23,7 @@ services:
         container_name: blog_mysql
         restart: always
         environment:
-            MYSQL_DATABASE: blogـdashboard
+            MYSQL_DATABASE: blog_dashboard
             MYSQL_USER: younes
             MYSQL_PASSWORD: Blog81Dashboard
             MYSQL_ROOT_PASSWORD: rootpass
