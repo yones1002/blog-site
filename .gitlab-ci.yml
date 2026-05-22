@@ -1,0 +1,36 @@
+stages:
+  - build
+  - deploy
+
+variables:
+  IMAGE_TAG: $CI_COMMIT_SHORT_SHA
+
+build:
+  stage: build
+  image: docker:latest
+  services:
+    - docker:dind
+  script:
+    - docker build -t blog-app:$IMAGE_TAG .
+  only:
+    - main
+
+deploy:
+  stage: deploy
+  image: alpine:latest
+  before_script:
+    - apk add --no-cache openssh-client
+  script:
+    - echo "$SSH_KEY" > key.pem
+    - chmod 600 key.pem
+
+    - ssh -o StrictHostKeyChecking=no -i key.pem root@$SERVER_IP "
+      cd /var/www/blog &&
+      git pull origin main &&
+      docker compose down &&
+      docker compose up -d --build &&
+      docker exec blog_app php artisan migrate --force &&
+      docker exec blog_app php artisan optimize:clear
+      "
+  only:
+    - main
