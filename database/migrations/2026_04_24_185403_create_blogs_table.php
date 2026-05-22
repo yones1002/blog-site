@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('short_detail')->nullable();
             $table->longText('long_detail')->nullable();
             $table->text('link')->nullable();
+            $table->text('rss_link')->nullable();
             $table->string('cover')->nullable();
             $table->string('mini_cover')->nullable();
             $table->longText('seo')->nullable();

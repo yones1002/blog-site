@@ -31,6 +31,7 @@ class Blog extends Model
         'videos',
         'lang',
         'author_id',
+        'rss_link',
     ];
 
     protected $casts = [
