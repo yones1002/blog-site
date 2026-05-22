@@ -35,12 +35,8 @@ class BlogInfolist
                         TextEntry::make('twitter_title'),
                     ])
                     ->columns(2),
-                TextEntry::make('time')
-                    ->placeholder('-'),
                 TextEntry::make('status')
                     ->badge(),
-                TextEntry::make('show')
-                    ->placeholder('-'),
                 RepeatableEntry::make('faq')
                     ->schema([
                         TextEntry::make('question'),
@@ -52,8 +48,6 @@ class BlogInfolist
                     ->label('Category')
                     ->placeholder('-'),
                 TextEntry::make('view')
-                    ->numeric(),
-                TextEntry::make('likes')
                     ->numeric(),
                 TextEntry::make('parent_id')
                     ->numeric(),

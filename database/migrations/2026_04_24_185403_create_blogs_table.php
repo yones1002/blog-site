@@ -23,14 +23,11 @@ return new class extends Migration
             $table->string('cover')->nullable();
             $table->string('mini_cover')->nullable();
             $table->longText('seo')->nullable();
-            $table->string('time')->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');
-            $table->string('show')->nullable();
             $table->longText('faq')->nullable();
             $table->string('created_by')->default('Content Team');
             $table->integer('category_id')->nullable();
             $table->integer('view')->default(0);
-            $table->integer('likes')->default(0);
             $table->integer('parent_id')->default(0);
             $table->timestamp('share_time')->nullable();
             $table->string('videos')->nullable();

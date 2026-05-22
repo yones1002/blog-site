@@ -25,20 +25,13 @@ class BlogsTable
                     ->searchable(),
                 TextColumn::make('mini_cover')
                     ->searchable(),
-                TextColumn::make('time')
-                    ->searchable(),
                 TextColumn::make('status')
                     ->badge(),
-                TextColumn::make('show')
-                    ->searchable(),
                 TextColumn::make('created_by')
                     ->searchable(),
                 TextColumn::make('category.name')
                     ->searchable(),
                 TextColumn::make('view')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('likes')
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('parent_id')

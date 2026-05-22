@@ -81,12 +81,10 @@ class BlogForm
                             ->collapsible()
                             ->addActionLabel('Add SEO Data'),
                     ]),
-                TextInput::make('time'),
                 Select::make('status')
                     ->options(['active' => 'Active', 'inactive' => 'Inactive'])
                     ->default('active')
                     ->required(),
-                TextInput::make('show'),
                 Section::make('FAQ')
                     ->columnSpanFull()
                     ->schema([
@@ -113,10 +111,6 @@ class BlogForm
                     )
                     ->required(),
                 TextInput::make('view')
-                    ->required()
-                    ->numeric()
-                    ->default(0),
-                TextInput::make('likes')
                     ->required()
                     ->numeric()
                     ->default(0),
