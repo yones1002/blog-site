@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Log;
 
 class GptAction
 {
-    const apiKey = "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";
+    const apiKey = "sk-proj-1eKuE4DgdsdsU3K3iiXAEoYPtmFRgxVudcdscdscnzJVrFWxek9e-g7uz9r2eG7cdscdsceKUCauMwS-rEhUhZAgcdscsdcsdoO1OT3BlbkFJx_zM3Sz7bZ4eo-ba38kmYIz6IN6uvzXrS6XSukPsSz47Uq1PjdcsdcdiXpFWN-CiqLHpHNhdssdePZbiTHIA";
 
     public function __construct(protected string $input)
     {
