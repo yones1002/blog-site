@@ -22,8 +22,9 @@ class BlogResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
-    protected static ?string $recordTitleAttribute = 'Blogs';
-
+    protected static ?string $recordTitleAttribute = 'وبلاگ';
+    protected static ?string $modelLabel = 'بلاگ';
+    protected static ?string $pluralModelLabel = 'بلاگ‌ها';
     public static function form(Schema $schema): Schema
     {
         return BlogForm::configure($schema);
