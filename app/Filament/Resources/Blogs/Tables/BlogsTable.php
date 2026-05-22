@@ -15,7 +15,7 @@ class BlogsTable
     {
         return $table
             ->columns([
-                TextColumn::make('title')
+                TextColumn::make('عنوان')
                     ->searchable(),
                 TextColumn::make('slug')
                     ->searchable(),
