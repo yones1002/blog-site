@@ -23,14 +23,6 @@ class BlogInfolist
                 TextEntry::make('long_detail')
                     ->placeholder('-')
                     ->columnSpanFull(),
-                RepeatableEntry::make('link')
-                    ->schema([
-                        TextEntry::make('aparat'),
-                        TextEntry::make('youtube'),
-                        TextEntry::make('voice'),
-                        TextEntry::make('twitter'),
-                    ])
-                    ->columns(2),
                 ImageEntry::make('cover'),
                 ImageEntry::make('mini_cover'),
                 RepeatableEntry::make('seo')
