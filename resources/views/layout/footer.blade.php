@@ -10,29 +10,8 @@
             </div>
         </div>
 
-        <div class="footer-links">
-            <div class="footer-column">
-                <h4>دسته‌بندی‌ها</h4>
-                <a href="#">هنر</a>
-                <a href="#">طراحی</a>
-                <a href="#">معماری</a>
-            </div>
-            <div class="footer-column">
-                <h4>محتوا</h4>
-                <a href="#">مجله</a>
-                <a href="#">پادکست</a>
-                <a href="#">نویسندگان</a>
-            </div>
-            <div class="footer-column">
-                <h4>اطلاعات</h4>
-                <a href="#">راهنمای استایل</a>
-                <a href="#">مجوز</a>
-                <a href="#">تغییرات</a>
-            </div>
-        </div>
-
         <div class="footer-bottom">
-            <div class="footer-copyright">© ساخته شده توسط پاول گولا - قدرت گرفته از وب‌فلو</div>
+            <div class="footer-copyright">© ساخته شده توسط یونس صحرایی</div>
             <div class="footer-social">
                 <a href="#" aria-label="Twitter">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">

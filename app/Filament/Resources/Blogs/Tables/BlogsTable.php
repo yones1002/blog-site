@@ -16,7 +16,12 @@ class BlogsTable
     {
         return $table
             ->columns([
-                ImageColumn::make('cover')->label('کاور'),
+                ImageColumn::make('cover_url')
+                ->label('کاور')
+                    ->disk('public')
+                    ->size(70)
+                    ->square()
+                    ->checkFileExistence(false),
 
                 TextColumn::make('title')
                     ->label('عنوان')
@@ -30,7 +35,7 @@ class BlogsTable
                     ->label('وضعیت')
                     ->badge(),
 
-                TextColumn::make('category.name')
+                TextColumn::make('category.fa_name')
                     ->label('دسته‌بندی')
                     ->searchable(),
 

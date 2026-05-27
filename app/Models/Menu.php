@@ -25,4 +25,8 @@ class Menu extends Model
         return $this->hasMany(Menu::class, 'parent_id')
             ->orderBy('sort');
     }
+    public function scopeActive($query)
+    {
+        return $query->where('active', 1);
+    }
 }

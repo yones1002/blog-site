@@ -7,9 +7,9 @@
 
     <nav>
         <ul class="nav-links">
-            <li><a href="#magazine">مجله</a></li>
-            <li><a href="#authors">نویسندگان</a></li>
-            <li><a href="#podcast">پادکست</a></li>
+            @foreach($menus as $menu)
+                <li><a href="{{ $menu->url }}">{{ $menu->title }}</a></li>
+            @endforeach
         </ul>
 
         <div class="social-icons">
