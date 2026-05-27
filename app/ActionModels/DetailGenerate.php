@@ -4,7 +4,7 @@ namespace App\ActionModels;
 
 use App\Actions\GptAction;
 
-class seoGenerate extends GptAction
+class detailGenerate extends GptAction
 {
     public function __construct(string $input)
     {

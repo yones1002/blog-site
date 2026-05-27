@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
+    const string RSS_CATEGORY_ID = 'RssCategory';
     protected $table = 'categories';
     protected $fillable = [
         'name',

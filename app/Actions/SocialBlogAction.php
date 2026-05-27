@@ -4,17 +4,17 @@ namespace App\Actions;
 
 use App\Contracts\AiDataGenerate;
 use App\Models\Blog;
-use App\ActionModels\seoGenerate;
+use App\ActionModels\detailGenerate;
 use App\Services\SeoService;
 
 class SocialBlogAction implements AiDataGenerate
 {
-    protected seoGenerate $seoGenerate;
+    protected detailGenerate $seoGenerate;
     protected string|null $response;
 
     public function __construct(protected Blog $blog, protected int $seoGenerateId = 0)
     {
-        $this->seoGenerate = new seoGenerate($this->blog->long_detail);
+        $this->seoGenerate = new detailGenerate($this->blog->long_detail);
     }
 
     public function createSeo(): void
