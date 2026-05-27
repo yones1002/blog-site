@@ -54,10 +54,10 @@ class Blog extends Model
         return $query->where('status', 'active');
     }
 
-    public function getCoverUrlAttribute(): ?string
+    public function getCoverUrlAttribute(): string
     {
         if (!$this->cover) {
-            return null;
+            return asset('images/placeholder.jpg'); // یا null
         }
 
         return Storage::disk('public')->url('blogs/' . $this->cover);

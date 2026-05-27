@@ -21,8 +21,9 @@
             </div>
         </div>
         <span class="hero-badge">{{$slider->category->fa_name}}</span>
+        <span class="hero-badge">نمایش </span>
     </div>
     <div class="hero-image">
-        <img src="{{'http://localhost:8181/storage/'.$slider->cover}}" alt="Featured Article">
+        <img src="{{ $slider->cover_url }}" alt="{{ $slider->title }}">
     </div>
 </section>
