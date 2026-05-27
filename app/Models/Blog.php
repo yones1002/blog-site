@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
 
 class Blog extends Model
 {
@@ -47,5 +48,18 @@ class Blog extends Model
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'author_id');
+    }
+    public function scopeActive($query)
+    {
+        return $query->where('status', 'active');
+    }
+
+    public function getCoverUrlAttribute(): ?string
+    {
+        if (!$this->cover) {
+            return null;
+        }
+
+        return Storage::disk('public')->url('blogs/' . $this->cover);
     }
 }

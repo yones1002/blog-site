@@ -22,7 +22,7 @@ class MenusTable
                 TextColumn::make('title')->label('عنوان منو'),
                 TextColumn::make('url')->label('لینک'),
                 TextColumn::make('type')->label('نوع منو')->badge(),
-                TextColumn::make('active')->label('وضعیت')->badge(),
+                TextColumn::make('sort')->label('چیدمان')->badge(),
             ])
             ->actions([
                 EditAction::make()->label('ویرایش'),
