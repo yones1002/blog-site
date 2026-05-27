@@ -15,8 +15,6 @@
 
 @include('layout.subheader')
 
-@include('layout.slider')
-
 @yield('content')
 
 @include('layout.footer')
