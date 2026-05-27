@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\Blogs\Pages;
 
 use App\Filament\Resources\Blogs\BlogResource;
-use Filament\Actions\DeleteAction;
 use Filament\Actions\EditAction;
 use Filament\Resources\Pages\ViewRecord;
 
@@ -15,7 +14,6 @@ class ViewBlog extends ViewRecord
     {
         return [
             EditAction::make(),
-            DeleteAction::make(),
         ];
     }
 }
