@@ -14,23 +14,40 @@ class CategoryForm
         return $schema
             ->components([
                 TextInput::make('name')
+                    ->label('نام')
                     ->required(),
+
                 TextInput::make('fa_name')
+                    ->label('نام فارسی')
                     ->required(),
+
                 TextInput::make('slug')
+                    ->label('اسلاگ')
                     ->required(),
+
                 TextInput::make('type')
+                    ->label('نوع')
                     ->required(),
+
                 TextInput::make('parent_id')
+                    ->label('والد')
                     ->required()
                     ->numeric()
                     ->default(0),
+
                 Textarea::make('description')
+                    ->label('توضیحات انگلیسی')
                     ->columnSpanFull(),
+
                 Textarea::make('fa_description')
+                    ->label('توضیحات فارسی')
                     ->columnSpanFull(),
-                TextInput::make('json'),
-                FileUpload::make('image'),
+
+                TextInput::make('json')
+                    ->label('JSON'),
+
+                FileUpload::make('image')
+                    ->label('تصویر'),
             ]);
     }
 }

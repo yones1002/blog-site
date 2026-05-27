@@ -16,23 +16,31 @@ class CategoriesTable
     {
         return $table
             ->columns([
+                ImageColumn::make('image')->label('تصویر'),
                 TextColumn::make('name')
+                    ->label('نام')
                     ->searchable(),
+
                 TextColumn::make('fa_name')
+                    ->label('نام فارسی')
                     ->searchable(),
+
                 TextColumn::make('slug')
+                    ->label('اسلاگ')
                     ->searchable(),
+
                 TextColumn::make('type')
+                    ->label('نوع')
                     ->searchable(),
-                TextColumn::make('parent_id')
-                    ->numeric()
-                    ->sortable(),
-                ImageColumn::make('image'),
+
                 TextColumn::make('created_at')
+                    ->label('ساخته شده در')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+
                 TextColumn::make('updated_at')
+                    ->label('آخرین بروزرسانی')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

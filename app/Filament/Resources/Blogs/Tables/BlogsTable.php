@@ -7,6 +7,7 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Table;
 
 class BlogsTable
@@ -15,38 +16,39 @@ class BlogsTable
     {
         return $table
             ->columns([
-                TextColumn::make('عنوان')
+                ImageColumn::make('cover')->label('کاور'),
+
+                TextColumn::make('title')
+                    ->label('عنوان')
                     ->searchable(),
-                TextColumn::make('slug')
-                    ->searchable(),
+
                 TextColumn::make('type')
+                    ->label('نوع')
                     ->searchable(),
-                TextColumn::make('cover')
-                    ->searchable(),
-                TextColumn::make('mini_cover')
-                    ->searchable(),
+
                 TextColumn::make('status')
+                    ->label('وضعیت')
                     ->badge(),
-                TextColumn::make('created_by')
-                    ->searchable(),
+
                 TextColumn::make('category.name')
+                    ->label('دسته‌بندی')
                     ->searchable(),
-                TextColumn::make('view')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('parent_id')
-                    ->numeric()
-                    ->sortable(),
+
                 TextColumn::make('share_time')
+                    ->label('زمان انتشار')
                     ->dateTime()
                     ->sortable(),
-                TextColumn::make('videos')
-                    ->searchable(),
+
                 TextColumn::make('lang')
+                    ->label('زبان')
                     ->badge(),
+
                 TextColumn::make('author_id')
+                    ->label('نویسنده')
                     ->searchable(),
+
                 TextColumn::make('deleted_at')
+                    ->label('حذف شده در')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

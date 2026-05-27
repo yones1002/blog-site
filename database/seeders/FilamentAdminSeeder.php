@@ -17,6 +17,7 @@ class FilamentAdminSeeder extends Seeder
             ['email' => 'jjonah322@gmail.com'],
             [
                 'name' => 'younes',
+                'type' => 'admin',
                 'password' => Hash::make('Y00nes81'),
             ]
         );
