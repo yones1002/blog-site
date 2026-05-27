@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Actions\SocialBlogAction;
+use App\Actions\SocialDetailAction;
 use App\Models\Blog;
 use Illuminate\Console\Attributes\Description;
 use Illuminate\Console\Attributes\Signature;
@@ -27,7 +27,7 @@ class SeoGenerate extends Command
         foreach ($blogs as $blog) {
             if (!is_null($blog) && !is_null($blog->long_detail))
             {
-                (new SocialBlogAction($blog))->createSeo();
+                (new SocialDetailAction($blog))->createSeo();
 
                 $this->info('Seo created > ' . $blog->id);
             }

@@ -23,7 +23,7 @@ class SeoService
             ]);
     }
 
-    public static function updateFaq($blogId, $faq)
+    public static function updateFaq($blogId, $faq): int
     {
         return Blog::query()->where('id', $blogId)
             ->update([
