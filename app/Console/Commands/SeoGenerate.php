@@ -17,8 +17,9 @@ class SeoGenerate extends Command
      */
     public function handle(): void
     {
-        $blogs = Blog::query()->latest()->limit(5)
+        $blogs = Blog::query()->latest()
             ->whereNull('deleted_at')
+            ->whereNull('seo')
             ->whereNotNull('rss_link')
             ->where('status','inactive')
             ->get();

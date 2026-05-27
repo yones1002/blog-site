@@ -19,17 +19,6 @@ class RssJob implements ShouldQueue
 
     public function handle(): void
     {
-        $exists = Blog::query()
-            ->where('rss_link', $this->data['link'])
-            ->exists();
-
-        if ($exists) {
-            Log::info('RSS already exists', [
-                'link' => $this->data['link']
-            ]);
-            return;
-        }
-
         try {
             Blog::query()->create([
                 'title' => $this->data['title'],
@@ -40,9 +29,7 @@ class RssJob implements ShouldQueue
                 'mini_cover' => $this->data['cover'],
                 'type' => 'news',
                 'status' => 'inactive',
-                'show' => 1,
                 'lang' => 'fa',
-                'likes' => 0,
                 'share_time' => now(),
                 'author_id' => 1,
                 'rss_link' => $this->data['link'],
