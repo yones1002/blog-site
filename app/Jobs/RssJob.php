@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Models\Blog;
+use App\Models\Category;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -20,6 +21,10 @@ class RssJob implements ShouldQueue
     public function handle(): void
     {
         try {
+            $category = Category::query()
+                ->where('fa_name', $this->data['category'] ?? null)
+                ->first();
+
             Blog::query()->create([
                 'title' => $this->data['title'],
                 'slug' => $this->data['slug'],
@@ -33,7 +38,10 @@ class RssJob implements ShouldQueue
                 'share_time' => now(),
                 'author_id' => 1,
                 'rss_link' => $this->data['link'],
+
+                'category_id' => $category?->id,
             ]);
+
         } catch (\Throwable $e) {
             Log::error('RSS_JOB_FAILED', [
                 'error' => $e->getMessage(),

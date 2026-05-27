@@ -92,6 +92,7 @@ class ImportNewsCommand extends Command
             'long_detail' => $description,
             'cover' => $image,
             'link' => $link,
+            'category' => isset($item->category) ? (string) $item->category : null,
         ];
     }
 }
