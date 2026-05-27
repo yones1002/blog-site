@@ -4,7 +4,7 @@ namespace App\ActionModels;
 
 use App\Actions\GptAction;
 
-class seoGenerate extends GptAction
+class DetailGenerate extends GptAction
 {
     public function __construct(string $input)
     {
@@ -83,5 +83,45 @@ class seoGenerate extends GptAction
         }
 
         return $decoded;
+    }
+
+    public function makeFa(): string
+    {
+        $parameter = "
+تو یک نویسنده خبری هستی.
+
+فقط یک پاراگراف 3 تا 4 خطی برگردان.
+هیچ JSON، هیچ توضیح اضافه، هیچ markdown.
+
+قوانین:
+- فقط متن ساده
+- فقط فارسی
+- خلاصه و خبری
+
+متن:
+{$this->input}
+";
+
+        return $this->execute($parameter);
+    }
+
+    public function makeEn(): string
+    {
+        $parameter = "
+You are a news writer.
+
+Return ONLY a 3–4 line paragraph.
+No JSON, no markdown, no explanation.
+
+Rules:
+- plain text only
+- English only
+- concise news summary
+
+Text:
+{$this->input}
+";
+
+        return $this->execute($parameter);
     }
 }

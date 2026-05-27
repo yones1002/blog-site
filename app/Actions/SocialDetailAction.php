@@ -2,24 +2,24 @@
 
 namespace App\Actions;
 
+use App\ActionModels\DetailGenerate;
 use App\Contracts\AiDataGenerate;
 use App\Models\Blog;
-use App\ActionModels\seoGenerate;
-use App\Services\SeoService;
+use App\Services\DetailService;
 
-class SocialBlogAction implements AiDataGenerate
+class SocialDetailAction implements AiDataGenerate
 {
-    protected seoGenerate $seoGenerate;
+    protected DetailGenerate $Generate;
     protected string|null $response;
 
-    public function __construct(protected Blog $blog, protected int $seoGenerateId = 0)
+    public function __construct(protected Blog $blog, protected int $GenerateId = 0)
     {
-        $this->seoGenerate = new seoGenerate($this->blog->long_detail);
+        $this->Generate = new DetailGenerate($this->blog->long_detail);
     }
 
     public function createSeo(): void
     {
-        $seo = $this->seoGenerate->makeSeo();
+        $seo = $this->Generate->makeSeo();
 
         if (is_null($seo)) {
             return;
@@ -28,7 +28,7 @@ class SocialBlogAction implements AiDataGenerate
     }
     public function createFaq(): void
     {
-        $faq = $this->seoGenerate->makeFaq();
+        $faq = $this->Generate->makeFaq();
 
         if (is_null($faq)) {
             return;
@@ -53,14 +53,10 @@ class SocialBlogAction implements AiDataGenerate
             ]
         ];
 
-        SeoService::updateSeo($this->blog->id, $seo);
+        DetailService::updateSeo($this->blog->id, $seo);
     }
-    public function insertFaq(array $faqs)
+    public function insertFaq(array $faqs): void
     {
-
-        if (!is_array($faqs)) {
-            return;
-        }
 
         $data = [];
 
@@ -78,6 +74,6 @@ class SocialBlogAction implements AiDataGenerate
             return;
         }
 
-        SeoService::updateFaq($this->blog->id, $data);
+        DetailService::updateFaq($this->blog->id, $data);
     }
 }

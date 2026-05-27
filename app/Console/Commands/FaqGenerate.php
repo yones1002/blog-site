@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Actions\SocialBlogAction;
+use App\Actions\SocialDetailAction;
 use App\Models\Blog;
 use Illuminate\Console\Attributes\Description;
 use Illuminate\Console\Attributes\Signature;
@@ -27,7 +27,7 @@ class FaqGenerate extends Command
         foreach ($blogs as $blog) {
             if (!is_null($blog) && !is_null($blog->long_detail))
             {
-                (new SocialBlogAction($blog))->createFaq();
+                (new SocialDetailAction($blog))->createFaq();
 
                 $this->info('faq created > ' . $blog->id);
             }
