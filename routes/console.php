@@ -6,6 +6,6 @@ use Illuminate\Support\Facades\Artisan;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
     $this::command('app:import-news-command')->hourly();
-    $this::command('app:faq-generate')->hourly();
-    $this::command('app:seo-generate')->hourly();
+    $this::command('app:faq-generate')->everyMinute();
+    $this::command('app:seo-generate')->everyMinute();
 })->purpose('Display an inspiring quote');

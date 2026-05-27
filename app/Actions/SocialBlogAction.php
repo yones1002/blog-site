@@ -37,10 +37,47 @@ class SocialBlogAction implements AiDataGenerate
     }
     public function insertSeo($message): void
     {
-        SeoService::updateSeo($this->blog->id, $message);
+        if (!is_array($message)) {
+            return;
+        }
+
+        $seo = [
+            [
+                'meta_title' => $message['meta_title'] ?? '',
+                'og_title' => $message['meta_title'] ?? '',
+                'twitter_title' => $message['meta_title'] ?? '',
+                'meta_description' => $message['meta_description'] ?? '',
+                'og_description' => $message['meta_description'] ?? '',
+                'twitter_description' => $message['meta_description'] ?? '',
+                'meta_keywords' => $message['meta_keywords'] ?? '',
+            ]
+        ];
+
+        SeoService::updateSeo($this->blog->id, $seo);
     }
-    public function insertFaq($message): void
+    public function insertFaq(array $faqs)
     {
-        SeoService::updateFaq($this->blog->id, $message);
+
+        if (!is_array($faqs)) {
+            return;
+        }
+
+        $data = [];
+
+        foreach ($faqs as $faq) {
+            if (empty($faq['question']) || empty($faq['answer'])) {
+                continue;
+            }
+
+            $data[] = [
+                'question' => $faq['question'],
+                'answer' => $faq['answer'],
+            ];
+        }
+        if (empty($data)) {
+            return;
+        }
+
+        SeoService::updateFaq($this->blog->id, $data);
     }
 }

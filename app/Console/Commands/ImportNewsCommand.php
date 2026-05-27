@@ -8,7 +8,9 @@ use Carbon\Carbon;
 use Illuminate\Console\Attributes\Description;
 use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
+use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 #[Signature('app:import-news-command')]
@@ -17,10 +19,11 @@ class ImportNewsCommand extends Command
 {
     /**
      * Execute the console command.
+     * @throws ConnectionException
      */
     public function handle(): void
     {
-        $rss = 'https://www.irna.ir/rss';
+        $rss = 'https://www.irna.ir/rss/tp/1';
 
         $response = Http::timeout(20)->get($rss);
 
@@ -36,24 +39,32 @@ class ImportNewsCommand extends Command
             LIBXML_NOCDATA
         );
 
-        $items = collect($xml->channel->item)->take(5);
-
         $count = 0;
 
-        foreach ($items as $item) {
+        foreach ($xml->channel->item as $item) {
 
-            if ($count >= 2) {
+            if ($count >= 10) {
                 break;
             }
 
             $data = $this->syncData($item);
 
-            RssJob::dispatch($data)->delay(now()->addSeconds(5));
+            $exists = Blog::query()
+                ->where('rss_link', $data['link'])
+                ->exists();
 
+            if ($exists) {
+
+                $this->warn("Skipped: {$data['title']}");
+
+                continue;
+            }
+            RssJob::dispatch($data);
+            $this->info("Imported: {$data['title']}");
             $count++;
         }
-
-        $this->info("{$count} news imported.");
+        $this->newLine();
+        $this->info("Total imported: {$count}");
     }
 
     public function syncData($item): array

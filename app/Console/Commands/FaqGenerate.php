@@ -17,7 +17,8 @@ class FaqGenerate extends Command
      */
     public function handle(): void
     {
-        $blogs = Blog::query()->latest()->limit(5)
+        $blogs = Blog::query()->latest()
+            ->whereNull('faq')
             ->whereNull('deleted_at')
             ->whereNotNull('rss_link')
             ->where('status','inactive')
