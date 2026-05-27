@@ -5,7 +5,7 @@ namespace App\Actions;
 use App\ActionModels\DetailGenerate;
 use App\Contracts\AiDataGenerate;
 use App\Models\Blog;
-use App\Services\SeoService;
+use App\Services\DetailService;
 
 class SocialDetailAction implements AiDataGenerate
 {
@@ -53,7 +53,7 @@ class SocialDetailAction implements AiDataGenerate
             ]
         ];
 
-        SeoService::updateSeo($this->blog->id, $seo);
+        DetailService::updateSeo($this->blog->id, $seo);
     }
     public function insertFaq(array $faqs): void
     {
@@ -74,6 +74,6 @@ class SocialDetailAction implements AiDataGenerate
             return;
         }
 
-        SeoService::updateFaq($this->blog->id, $data);
+        DetailService::updateFaq($this->blog->id, $data);
     }
 }

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('fa_name');
             $table->string('slug');
             $table->string('type');
+            $table->enum('status',['active','inactive'])->default('inactive');
             $table->integer('parent_id')->default(0);
             $table->longText('description')->nullable();
             $table->longText('fa_description')->nullable();
