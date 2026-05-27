@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Blogs\Pages;
 
 use App\Filament\Resources\Blogs\BlogResource;
 use Filament\Actions\CreateAction;
+use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\ListRecords;
 
 class ListBlogs extends ListRecords
@@ -14,6 +15,7 @@ class ListBlogs extends ListRecords
     {
         return [
             CreateAction::make(),
+            DeleteAction::make(),
         ];
     }
 }

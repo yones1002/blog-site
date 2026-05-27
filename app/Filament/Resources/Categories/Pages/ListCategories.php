@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Categories\Pages;
 
 use App\Filament\Resources\Categories\CategoryResource;
 use Filament\Actions\CreateAction;
+use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\ListRecords;
 
 class ListCategories extends ListRecords
@@ -14,6 +15,7 @@ class ListCategories extends ListRecords
     {
         return [
             CreateAction::make(),
+            DeleteAction::make(),
         ];
     }
 }
