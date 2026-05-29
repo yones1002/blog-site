@@ -13,7 +13,7 @@ class BlogController extends Controller
 {
     public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
-        $query = Blog::query()->active()->latest()
+        $query = Blog::query()->Active()->latest()
             ->when(request('search'), function ($q) {
                 $search = request('search');
                 $q->where(function ($sub) use ($search) {
@@ -28,5 +28,40 @@ class BlogController extends Controller
         $favorites = Blog::query()->with(['category','user'])->Active()->orderby('view','ASC')->latest()->limit(5)->get();
 
         return view('blog.index', compact('blogs','categories','favorites'));
+    }
+
+    public function show($type,$slug): \Illuminate\Contracts\View\View
+    {
+        $blog = Blog::query()->active()->where('type',$type)->where('slug',$slug)->first();
+        if (!$blog) {
+            abort(404);
+        }
+
+        $categories = Category::query()->withCount('blogs')->where('status','active')->latest()->limit(8)->get();
+
+        $favorites = Blog::query()->with(['category','user'])->Active()->orderby('view','ASC')->latest()->limit(5)->get();
+
+        $relatedBlogs = Blog::query()
+            ->with(['category', 'user'])
+            ->Active()
+            ->where('category_id', $blog->category_id)
+            ->where('id', '!=', $blog->id)
+            ->latest()
+            ->limit(4)
+            ->get();
+
+        $prevBlog = Blog::query()
+            ->Active()
+            ->where('id', '<', $blog->id)
+            ->latest('id')
+            ->first();
+
+        $nextBlog = Blog::query()
+            ->Active()
+            ->where('id', '>', $blog->id)
+            ->oldest('id')
+            ->first();
+
+        return view('blog.show', compact('blog','categories','favorites','relatedBlogs','prevBlog','nextBlog'));
     }
 }

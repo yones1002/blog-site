@@ -18,7 +18,7 @@ class HomeController extends Controller
         // favorite
         $favorites = Blog::query()->with(['category','user'])->Active()->orderby('view','ASC')->latest()->limit(5)->get();
         // categories
-        $categories = Category::query()->where('status','active')->latest()->limit(4)->get();
+        $categories = Category::query()->Active()->latest()->limit(4)->get();
         //author
         $authors = User::query()->where('type','author')->latest()->limit(6)->get();
 

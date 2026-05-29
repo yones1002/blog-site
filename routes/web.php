@@ -17,6 +17,5 @@ Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('h
  */
 Route::group(['prefix' => 'blog'], function () {
     Route::get('/',[BlogController::class,'index'])->name('blogs.index');
-    Route::get('/{type}',[BlogController::class,'showCategoryBlog'])->name('blogs.show.category');
-    Route::get('/{type}/slug',[BlogController::class,'show'])->name('blogs.show');
+    Route::get('/{type}/{slug}',[BlogController::class,'show'])->name('blogs.show');
 });
