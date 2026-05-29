@@ -210,22 +210,10 @@
                 <h3 class="bl-33">
                     برچسب‌ها</h3>
                 <div class="bl-44">
-                    <a href="#"
-                       class="bl-45">هنر</a>
-                    <a href="#"
-                       class="bl-45">طراحی</a>
-                    <a href="#"
-                       class="bl-45">معماری</a>
-                    <a href="#"
-                       class="bl-45">عکاسی</a>
-                    <a href="#"
-                       class="bl-45">نقاشی</a>
-                    <a href="#"
-                       class="bl-45">خیابانی</a>
-                    <a href="#"
-                       class="bl-45">مدرن</a>
-                    <a href="#"
-                       class="bl-45">مجسمه</a>
+                    @foreach($tags as $tag)
+                        <a href="#"
+                           class="bl-45">{{$tag->fa_name}}</a>
+                    @endforeach
                 </div>
             </div>
 

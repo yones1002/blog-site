@@ -77,11 +77,11 @@
             <div class="bs-13">
                 <h3 class="bs-14">برچسب‌ها</h3>
                 <div class="bs-15">
-{{--                    @foreach($blog->tags as $tag)--}}
-                        <a href="/tag/l" class="bs-16">
-                            تست
+                    @foreach($blog->hashtags as $tag)
+                        <a href="#" class="bs-16">
+                            {{$tag->fa_name}}
                         </a>
-{{--                    @endforeach--}}
+                    @endforeach
                 </div>
             </div>
 
@@ -107,7 +107,7 @@
             <!-- Author Box -->
             <div class="bs-21">
                 <div class="bs-22">
-                    <img src="{{$blog->user->name ?? 'https://placehold.co/150x150/333/fff?text=A'}}" alt="{{$blog->user->name}}" class="bs-23">
+                    <img src="{{$blog->user->avatar}}" alt="{{$blog->user->name}}" class="bs-23">
                 </div>
                 <div class="bs-24">
                     <div class="bs-25">نویسنده</div>
@@ -166,7 +166,7 @@
             <!-- Author Profile Card -->
             <div class="bs-44">
                 <div class="bs-45">
-                    <img src="{{$blog->user->name ?? 'https://placehold.co/150x150/333/fff?text=A'}}" alt="{{$blog->user->name}}" class="bs-23">
+                    <img src="{{$blog->user->avatar}}" alt="{{$blog->user->name}}" class="bs-23">
                 </div>
                 <h4 class="bs-46">{{$blog->user->name}}</h4>
                 <p class="bs-47">نویسنده و روزنامه‌نگار</p>
@@ -204,24 +204,12 @@
             <div
                 class="bl-32">
                 <h3 class="bl-33">
-                    برچسب‌ها</h3>
+                    برچسب‌های مرتبط</h3>
                 <div class="bl-44">
-                    <a href="#"
-                       class="bl-45">هنر</a>
-                    <a href="#"
-                       class="bl-45">طراحی</a>
-                    <a href="#"
-                       class="bl-45">معماری</a>
-                    <a href="#"
-                       class="bl-45">عکاسی</a>
-                    <a href="#"
-                       class="bl-45">نقاشی</a>
-                    <a href="#"
-                       class="bl-45">خیابانی</a>
-                    <a href="#"
-                       class="bl-45">مدرن</a>
-                    <a href="#"
-                       class="bl-45">مجسمه</a>
+                    @foreach($relatedTags as $relatedTag)
+                        <a href="#"
+                           class="bl-45">{{$relatedTag->fa_name}}</a>
+                    @endforeach
                 </div>
             </div>
 
