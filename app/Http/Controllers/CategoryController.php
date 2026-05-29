@@ -30,7 +30,7 @@ class CategoryController extends Controller
         if ($sort === 'oldest') {
             $categories->oldest();
         } elseif ($sort === 'popular') {
-            $categories->orderByDesc($categories->blogs_count);
+            $categories->orderByDesc('blogs_count');
         } else {
             $categories->latest();
         }

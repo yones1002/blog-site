@@ -106,20 +106,6 @@
                 </div>
             </div>
 
-            <!-- Author Box -->
-            <div class="bs-21">
-                <div class="bs-22">
-                    <img src="{{$blog->user->avatar}}" alt="{{$blog->user->name}}" class="bs-23">
-                </div>
-                <div class="bs-24">
-                    <div class="bs-25">نویسنده</div>
-                    <h4 class="bs-26">{{$blog->user->name}}</h4>
-                    <p class="bs-27">
-                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
-                    </p>
-                </div>
-            </div>
-
             <!-- Comments Section -->
             <div class="bs-28">
                 <h3 class="bs-29">
@@ -170,7 +156,9 @@
                 <div class="bs-45">
                     <img src="{{$blog->user->avatar}}" alt="{{$blog->user->name}}" class="bs-23">
                 </div>
-                <h4 class="bs-46">{{$blog->user->name}}</h4>
+                <a target="_self" href="{{route('author.show',[$blog->id])}}" >
+                    <h4 class="bs-46">{{$blog->user->name}}</h4>
+                </a>
                 <p class="bs-47">نویسنده و روزنامه‌نگار</p>
                 <div class="bs-48">
                     <a target="_self" href="#" class="bs-49">

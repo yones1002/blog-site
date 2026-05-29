@@ -37,6 +37,13 @@ class UserSeeder extends Seeder
             'لیلا محمدی',
         ];
 
+        $bios = [
+            'نویسنده و توسعه‌دهنده محتوا با تمرکز بر آموزش برنامه‌نویسی و تکنولوژی‌های وب.',
+            'علاقه‌مند به تولید محتوای تخصصی در حوزه توسعه نرم‌افزار و طراحی سیستم‌های مقیاس‌پذیر.',
+            'نویسنده حوزه فناوری با هدف ساده‌سازی مفاهیم پیچیده برای برنامه‌نویسان.',
+            'تولیدکننده محتوای آموزشی در زمینه Laravel، PHP و توسعه وب مدرن.',
+            'علاقه‌مند به آموزش و تحلیل تکنولوژی‌های جدید در دنیای وب.',
+        ];
         $avatar = fn () => 'https://api.dicebear.com/7.x/avataaars/svg?seed=' . uniqid();
 
         $authorUsers = [];
@@ -48,6 +55,7 @@ class UserSeeder extends Seeder
                 'email' => fake()->unique()->safeEmail(),
                 'password' => Hash::make('password'),
                 'avatar' => $avatar(),
+                'bio' => $bios[array_rand($bios)],
             ]);
         }
 

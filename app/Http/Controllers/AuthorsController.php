@@ -16,10 +16,16 @@ class AuthorsController extends Controller
     public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
         $sort = $request->get('sort', 'newest');
+        $search = $request->get('search');
 
         $authorsQuery = User::query()
-            ->where('type', 'author')
-            ->withCount('blogs');
+            ->where('type', 'authors')
+            ->withCount('blogs')
+            ->with('latestBlogs');
+
+        if ($search) {
+            $authorsQuery->where('name', 'like', "%{$search}%");
+        }
 
         // sorting
         if ($sort === 'popular') {
@@ -36,9 +42,9 @@ class AuthorsController extends Controller
             ->withQueryString();
 
         // stats
-        $totalAuthors = User::query()->where('type', 'author')->count();
+        $totalAuthors = User::query()->where('type', 'authors')->count();
 
-        $totalArticles = Blog::query()->where('type', 'article')->count();
+        $totalArticles = Blog::query()->latest()->count();
 
         $totalViews = Blog::query()->sum('view');
 
@@ -46,15 +52,37 @@ class AuthorsController extends Controller
             ? round($totalArticles / $totalAuthors, 1)
             : 0;
 
-        $latestBlogs = Blog::query()->latest()->limit(3)->get();
-
         return view('authors.index', compact(
             'authors',
             'totalAuthors',
             'totalArticles',
             'totalViews',
-            'avgArticles',
-            'latestBlogs'
+            'avgArticles'
         ));
+    }
+
+    public function show($id): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    {
+        $author = User::query()
+            ->where('type', 'authors')
+            ->where('id', $id)
+            ->withCount('blogs')
+            ->firstOrFail();
+
+        $blogs = $author->blogs()
+            ->with('category')
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
+
+        $latestBlogs = Blog::query()->with(['category', 'user'])->Active()->limit(5)->get();
+
+        $authors = User::query()
+            ->where('type', 'authors')
+            ->withCount('blogs')
+            ->with('latestBlogs')->limit(8)
+            ->get();
+
+        return view('authors.show', compact('author', 'blogs', 'latestBlogs','authors'));
     }
 }

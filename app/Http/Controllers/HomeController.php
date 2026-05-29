@@ -20,7 +20,7 @@ class HomeController extends Controller
         // categories
         $categories = Category::query()->Active()->latest()->limit(4)->get();
         //authors
-        $authors = User::query()->where('type','author')->latest()->limit(6)->get();
+        $authors = User::query()->where('type','authors')->latest()->limit(6)->get();
 
         return view('Home', compact('articles','favorites','categories','authors'));
     }

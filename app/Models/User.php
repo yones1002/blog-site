@@ -23,6 +23,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(Blog::class, 'author_id');
     }
+    public function latestBlogs(): HasMany
+    {
+        return $this->hasMany(Blog::class, 'author_id')
+            ->latest()
+            ->limit(3);
+    }
     /**
      * Get the attributes that should be cast.
      *

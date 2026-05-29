@@ -1,6 +1,7 @@
 @extends('layout.master')
 
 @section('content')
+    <link href="{{ asset('css/front/blog/list-blog.css') }}" rel="stylesheet">
     <!-- ===== HERO SECTION ===== -->
     <section class="hero-section">
         <div class="hero-content">
@@ -24,7 +25,7 @@
                 </div>
             </div>
             <span class="hero-badge">{{$slider->category->fa_name}}</span>
-            <span class="hero-badge">نمایش </span>
+            <a href="{{ route('blogs.show',[$slider->type,$slider->slug]) }}" class="btn-primary">نمایش</a>
         </div>
         <div class="hero-image">
             <img src="{{ $slider->cover_url }}" alt="{{ $slider->title }}">
@@ -34,7 +35,7 @@
     <section id="magazine">
         <div class="section-header">
             <h2 class="section-title">مجله</h2>
-            <a target="_self" href="#" class="section-link">
+            <a target="_self" href="{{route('blogs.index')}}" class="section-link">
                 همه مقالات
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M5 12h14M12 5l7 7-7 7"/>
@@ -45,28 +46,33 @@
         <div class="articles-grid">
             <div class="articles-list">
                 @foreach($articles as $article)
-                <article class="article-card">
-                    <div class="article-image">
-                        <img src="{{ $article->cover_url }}" alt="{{ $article->title }}">
-                    </div>
-                    <div class="article-content">
-                        <div>
-                            <h3 class="article-title">{{$article->title}}</h3>
-                            <p class="article-excerpt">{{$article->short_detail}}</p>
+                    <article class="article-card">
+                        <div class="article-image">
+                            <img src="{{ $article->cover_url }}" alt="{{ $article->title }}">
                         </div>
-                        <div class="article-meta">
-                            <div class="article-meta-left">
-                                <div class="meta-item"><span class="meta-label">نویسنده</span><span class="meta-value">{{$article->user->name}}</span>
-                                </div>
-                                <div class="meta-item"><span class="meta-label"> تاریخ انتشار</span><span class="meta-value">{{$article->share_time}}</span>
-                                </div>
-                                <div class="meta-item"><span class="meta-label">خواندن</span><span class="meta-value">۱ دقیقه</span>
-                                </div>
+                        <div class="article-content">
+                            <div>
+                                <a target="_self" href="{{ route('blogs.show', ['type' => $article->type, 'slug' => $article->slug]) }}" class="bl-19">
+                                    <h3 class="article-title">{{$article->title}}</h3>
+                                </a>
+                                <p class="article-excerpt">{{$article->short_detail}}</p>
                             </div>
-                            <span class="article-tag">{{$article->category->fa_name}}</span>
+                            <div class="article-meta">
+                                <div class="article-meta-left">
+                                    <div class="meta-item"><span class="meta-label">نویسنده</span><span
+                                            class="meta-value">{{$article->user->name}}</span>
+                                    </div>
+                                    <div class="meta-item"><span class="meta-label"> تاریخ انتشار</span><span
+                                            class="meta-value">{{$article->share_time}}</span>
+                                    </div>
+                                    <a href="{{ route('blogs.show',[$slider->type,$slider->slug]) }}" class="meta-item">
+                                        <span class="article-tag">نمایش</span>
+                                    </a>
+                                </div>
+                                <span class="article-tag">{{$article->category->fa_name}}</span>
+                            </div>
                         </div>
-                    </div>
-                </article>
+                    </article>
                 @endforeach
             </div>
 
@@ -81,12 +87,14 @@
                                 </div>
 
                                 <div class="popular-text">
-                                    <div class="popular-title">{{ $category->fa_name }}</div>
+                                    <a target="_self" href="{{ route('category.show', ['slug' => $category->slug]) }}" class="bl-19">
+                                        {{ $category->fa_name }}
+                                    </a>
                                 </div>
                             </div>
                         @endforeach
                     </div>
-                    <button class="btn-primary">نمایش</button>
+                    <a href="{{route('category.index')}}" class="btn-primary">نمایش</a>
                 </div>
 
                 <div class="sidebar-section">
@@ -99,7 +107,9 @@
                                 </div>
 
                                 <div class="popular-text">
-                                    <div class="popular-title">{{ $favorite->title }}</div>
+                                    <a target="_self" href="{{ route('blogs.show', ['type' => $favorite->type, 'slug' => $favorite->slug]) }}" class="bl-19">
+                                        {{ $favorite->title }}
+                                    </a>
                                 </div>
                             </div>
                         @endforeach
@@ -120,7 +130,7 @@
     <section id="authors">
         <div class="section-header">
             <h2 class="section-title">نویسندگان</h2>
-            <a target="_self" href="#" class="section-link">
+            <a target="_self" href="{{route('author.index')}}" class="section-link">
                 همه نویسندگان
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M5 12h14M12 5l7 7-7 7"/>
@@ -136,6 +146,10 @@
                     </div>
                     <div class="author-info">
                         <h3>{{$author->name}}</h3>
+                    </div>
+                    <div class="author-info">
+                        <a style="float: left" href="{{ route('author.show',[$author->id]) }}"
+                           class="btn-primary">نمایش</a>
                     </div>
                 </div>
             @endforeach

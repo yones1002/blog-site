@@ -35,5 +35,5 @@ Route::group(['prefix' => 'categories'], function () {
  */
 Route::group(['prefix' => 'authors'], function () {
     Route::get('/',[AuthorsController::class,'index'])->name('author.index');
-    Route::get('/{slug}',[AuthorsController::class,'show'])->name('category.show');
+    Route::get('/{id}',[AuthorsController::class,'show'])->name('author.show');
 });

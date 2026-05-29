@@ -158,7 +158,7 @@
                     <h3 class="bc-50">تگ‌های پرطرفدار</h3>
                     <div class="bc-51 bc-51-tags">
                         @foreach($tags as $tag)
-                            <a target="_self" href="/tag/{{ $tag->slug }}" class="bc-52-tag">
+                            <a target="_self" href="" class="bc-52-tag">
                                 <span>{{ $tag->fa_name }}</span>
                             </a>
                         @endforeach
@@ -170,7 +170,7 @@
                     <h3 class="bc-50">نویسندگان برتر</h3>
                     <div class="bc-55">
                         @foreach($topAuthors as $author)
-                            <a target="_self" href="/author/{{ $author->id }}" class="bc-56">
+                            <a target="_self" href="/authors/{{ $author->id }}" class="bc-56">
                                 <div class="bc-57">
                                     <img src="{{ $author->avatar ?? 'https://placehold.co/100x100/333/fff?text='.substr($author->name,0,1) }}" class="bc-58" alt="{{ $author->name }}">
                                 </div>

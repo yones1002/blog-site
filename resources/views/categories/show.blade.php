@@ -207,7 +207,7 @@
                     </div>
                     <div class="sc-62">
                         @foreach($authors as $author)
-                            <a target="_self" href="/author/{{ $author->id }}" class="sc-63 author-card">
+                            <a target="_self" href="/authors/{{ $author->id }}" class="sc-63 author-card">
                                 <div class="sc-64">
                                     <img src="{{ $author->avatar ?? 'https://placehold.co/150x150/222/fff?text='.mb_substr($author->name, 0, 1) }}" alt="{{ $author->name }}" class="sc-65" loading="lazy">
                                 </div>

@@ -193,7 +193,7 @@
                     <h3 class="bl-33">برچسب‌ها</h3>
                     <div class="bl-44">
                         @foreach($tags as $tag)
-                            <a target="_self" href="{{ route('blogs.index', ['tag' => $tag->slug]) }}" class="bl-45">{{ $tag->fa_name }}</a>
+                            <a target="_self" href="" class="bl-45">{{ $tag->fa_name }}</a>
                         @endforeach
                     </div>
                 </div>
