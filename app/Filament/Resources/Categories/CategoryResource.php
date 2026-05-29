@@ -9,6 +9,7 @@ use App\Filament\Resources\Categories\Pages\ViewCategory;
 use App\Filament\Resources\Categories\Schemas\CategoryForm;
 use App\Filament\Resources\Categories\Schemas\CategoryInfolist;
 use App\Filament\Resources\Categories\Tables\CategoriesTable;
+use App\Filament\Resources\Hashtags\RelationManagers\BlogsRelationManager;
 use App\Models\Category;
 use BackedEnum;
 use Filament\Resources\Resource;
@@ -43,7 +44,7 @@ class CategoryResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            BlogsRelationManager::class
         ];
     }
 

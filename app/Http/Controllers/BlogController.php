@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Blog;
 use App\Models\Category;
+use App\Models\Hashtag;
 use App\Models\Menu;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -27,7 +28,9 @@ class BlogController extends Controller
 
         $favorites = Blog::query()->with(['category','user'])->Active()->orderby('view','ASC')->latest()->limit(5)->get();
 
-        return view('blog.index', compact('blogs','categories','favorites'));
+        $tags = Hashtag::query()->Active()->inRandomOrder()->limit(4)->get();
+
+        return view('blog.index', compact('blogs','categories','favorites','tags'));
     }
 
     public function show($type,$slug): \Illuminate\Contracts\View\View

@@ -7,6 +7,7 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\SelectColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -32,6 +33,13 @@ class CategoriesTable
                 TextColumn::make('type')
                     ->label('نوع')
                     ->searchable(),
+
+                SelectColumn::make('status')
+                    ->label('وضعیت')
+                    ->options([
+                        'active' => 'فعال',
+                        'inactive' => 'غیرفعال',
+                    ]),
 
                 TextColumn::make('created_at')
                     ->label('ساخته شده در')

@@ -6,6 +6,7 @@ use App\Filament\Resources\Hashtags\Pages\CreateHashtag;
 use App\Filament\Resources\Hashtags\Pages\EditHashtag;
 use App\Filament\Resources\Hashtags\Pages\ListHashtags;
 use App\Filament\Resources\Hashtags\Pages\ViewHashtag;
+use App\Filament\Resources\Hashtags\RelationManagers\BlogsRelationManager;
 use App\Filament\Resources\Hashtags\Schemas\HashtagForm;
 use App\Filament\Resources\Hashtags\Schemas\HashtagInfolist;
 use App\Filament\Resources\Hashtags\Tables\HashtagsTable;
@@ -44,7 +45,7 @@ class HashtagResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            BlogsRelationManager::class,
         ];
     }
 

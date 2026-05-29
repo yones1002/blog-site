@@ -132,7 +132,7 @@
             @foreach($authors as $author)
                 <div class="author-card">
                     <div class="author-avatar">
-                        <img src="https://placehold.co/150x253/ff6b6b/fff?text={{$author->name}}" alt="{{$author->name}}">
+                        <img src="{{$author->avatar}}" alt="{{$author->name}}">
                     </div>
                     <div class="author-info">
                         <h3>{{$author->name}}</h3>
