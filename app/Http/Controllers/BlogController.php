@@ -7,38 +7,28 @@ use App\Models\Category;
 use App\Models\Hashtag;
 use App\Models\Menu;
 use App\Models\User;
+use App\Traits\HasSearch;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use PharIo\Manifest\Author;
 
 class BlogController extends Controller
 {
+    use HasSearch;
+
+    protected array $searchable = [
+        'title',
+        'short_detail',
+    ];
     public function index(Request $request)
     {
         $sort = $request->get('sort', 'newest');
 
-        $query = Blog::query()->with(['category', 'user'])->Active();
-
-        // search
-        if ($request->filled('search')) {
-            $search = $request->search;
-
-            $query->where(function ($q) use ($search) {
-                $q->where('title', 'like', "%{$search}%")
-                    ->orWhere('short_detail', 'like', "%{$search}%");
-            });
-        }
-
-        // sorting
-        if ($sort === 'popular') {
-            $query->orderByDesc('view');
-        } elseif ($sort === 'oldest') {
-            $query->oldest();
-        } else {
-            $query->latest();
-        }
-
-        $blogs = $query->paginate(15)->withQueryString();
+        $blogs = Blog::query()->with(['category', 'user'])->Active()->search($request->search)
+            ->when($sort === 'popular', fn($q) => $q->orderByDesc('view'))
+            ->when($sort === 'oldest', fn($q) => $q->oldest())
+            ->when(!in_array($sort, ['popular','oldest']), fn($q) => $q->latest())
+            ->paginate(15)->withQueryString();
 
         $categories = Category::query()->withCount('blogs')->Active()->latest()->limit(8)->get();
 
@@ -56,10 +46,11 @@ class BlogController extends Controller
 
     public function show($type,$slug): \Illuminate\Contracts\View\View
     {
-        $blog = Blog::query()->active()->where('type',$type)->where('slug',$slug)->first();
-        if (!$blog) {
-            abort(404);
-        }
+        $blog = Blog::query()->active()
+            ->whereType($type)
+            ->whereSlug($slug)
+            ->firstOrFail();
+
         $blog->increment('view');
         $categories = Category::query()->withCount('blogs')->where('status','active')->latest()->limit(8)->get();
 

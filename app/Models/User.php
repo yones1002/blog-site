@@ -29,6 +29,20 @@ class User extends Authenticatable
             ->latest()
             ->limit(3);
     }
+
+    public function scopeAuthors($query)
+    {
+        return $query->where('type', 'authors');
+    }
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->when($search, function ($q) use ($search) {
+            $q->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%");
+            });
+        });
+    }
     /**
      * Get the attributes that should be cast.
      *

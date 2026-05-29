@@ -48,12 +48,12 @@
         </section>
 
         <!-- Featured Post -->
-        @if($featuredBlog)
+        @if($latestBlog)
             <section class="sc-10">
                 <div class="sc-11">✨ مقاله ویژه</div>
-                <a target="_self" href="/blog/{{ $featuredBlog->type }}/{{ $featuredBlog->slug }}" class="sc-12">
+                <a target="_self" href="/blog/{{ $latestBlog->type }}/{{ $latestBlog->slug }}" class="sc-12">
                     <div class="sc-13">
-                        <img src="{{ $featuredBlog->cover_url }}" alt="{{ $featuredBlog->title }}" class="sc-14" loading="eager">
+                        <img src="{{ $latestBlog->cover_url }}" alt="{{ $latestBlog->title }}" class="sc-14" loading="eager">
                         <div class="sc-15">ویژه</div>
                         <div class="sc-13-overlay"></div>
                     </div>
@@ -61,19 +61,19 @@
                         <div class="sc-17">
                             <span class="sc-18">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                                {{ $featuredBlog->created_at->diffForHumans() ?? $featuredBlog->created_at }}
+                                {{ $latestBlog->created_at->diffForHumans() ?? $latestBlog->created_at }}
                             </span>
                             <span class="sc-18">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                                {{ $featuredBlog->user->name ?? 'نویسنده' }}
+                                {{ $latestBlog->user->name ?? 'نویسنده' }}
                             </span>
                             <span class="sc-18">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                                {{ $featuredBlog->time ?? 5 }} دقیقه
+                                {{ $latestBlog->time ?? 5 }} دقیقه
                             </span>
                         </div>
-                        <h2 class="sc-19">{{ $featuredBlog->title }}</h2>
-                        <p class="sc-20">{{ $featuredBlog->short_detail }}</p>
+                        <h2 class="sc-19">{{ $latestBlog->title }}</h2>
+                        <p class="sc-20">{{ $latestBlog->short_detail }}</p>
                         <div class="sc-21">
                             ادامه مطلب
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="sc-22"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -112,7 +112,7 @@
             <div class="sc-33">
 
                 @forelse($blogs as $index => $blog)
-                    @if($index == 0 && !$featuredBlog)
+                    @if($index == 0 && !$latestBlog)
                         <!-- First item large -->
                         <article class="sc-34">
                             <div class="sc-35">

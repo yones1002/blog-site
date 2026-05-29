@@ -129,7 +129,7 @@
 
                 <div class="bc-49">
                     <h3 class="bc-50">سایر نویسندگان</h3>
-                    @foreach($authors as $a)
+                    @foreach($otherAuthor as $a)
                         <a target="_self" href="/authors/{{ $a->id }}" class="bc-52">
                             <span class="bc-52-name">{{ $a->name }}</span>
                         </a>

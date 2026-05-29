@@ -57,14 +57,23 @@ class Blog extends Model
     public function getCoverUrlAttribute(): string
     {
         if (!$this->cover) {
-            return asset('images/placeholder.jpg'); // یا null
+            return asset('images/placeholder.jpg');
         }
-
         return Storage::disk('public')->url('blogs/' . $this->cover);
     }
 
     public function hashtags(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Hashtag::class, 'model_has_hashtag', 'model_id', 'hashtags_id');
+    }
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->when($search, function ($q) use ($search) {
+            $q->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                    ->orWhere('short_detail', 'like', "%{$search}%");
+            });
+        });
     }
 }

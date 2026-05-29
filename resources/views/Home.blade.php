@@ -24,7 +24,9 @@
                     <span class="meta-value">۱ دقیقه</span>
                 </div>
             </div>
-            <span class="hero-badge">{{$slider->category->fa_name}}</span>
+            <a href="{{ route('category.show', ['slug' => $slider->category->slug]) }}">
+                <span class="hero-badge">{{$slider->category->fa_name}}</span>
+            </a>
             <a href="{{ route('blogs.show',[$slider->type,$slider->slug]) }}" class="btn-primary">نمایش</a>
         </div>
         <div class="hero-image">
@@ -65,11 +67,13 @@
                                     <div class="meta-item"><span class="meta-label"> تاریخ انتشار</span><span
                                             class="meta-value">{{$article->share_time}}</span>
                                     </div>
-                                    <a href="{{ route('blogs.show',[$slider->type,$slider->slug]) }}" class="meta-item">
-                                        <span class="article-tag">نمایش</span>
+                                    <a href="{{ route('blogs.show',[$slider->type,$slider->slug]) }}" >
+                                        <span class="hero-badge">نمایش</span>
                                     </a>
                                 </div>
-                                <span class="article-tag">{{$article->category->fa_name}}</span>
+                                <a href="{{ route('category.show', ['slug' => $article->category->slug]) }}">
+                                    <span class="hero-badge">{{$article->category->fa_name}}</span>
+                                </a>
                             </div>
                         </div>
                     </article>

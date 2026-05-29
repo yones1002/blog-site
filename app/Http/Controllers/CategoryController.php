@@ -7,39 +7,33 @@ use App\Models\Category;
 use App\Models\Hashtag;
 use App\Models\Menu;
 use App\Models\User;
+use App\Traits\HasSearch;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use PharIo\Manifest\Author;
 
 class CategoryController extends Controller
 {
+    use HasSearch;
+
+    protected array $searchable = [
+        'fa_name',
+        'name',
+    ];
+
     public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
-        $search = $request->search;
         $sort = $request->sort ?? 'newest';
 
-        $categories = Category::query()->withCount('blogs')->Active()->withCount('blogs')
-            ->when($search, function ($q) use ($search) {
-                $q->where(function ($sub) use ($search) {
-                    $sub->where('fa_name', 'like', "%{$search}%")
-                        ->orWhere('name', 'like', "%{$search}%");
-                });
-            });
-
-        // SORT
-        if ($sort === 'oldest') {
-            $categories->oldest();
-        } elseif ($sort === 'popular') {
-            $categories->orderByDesc('blogs_count');
-        } else {
-            $categories->latest();
-        }
-
-        $categories = $categories
+        $categories = Category::query()->withCount('blogs')->Active()
+            ->withCount('blogs')
+            ->search($request->search)
+            ->when($sort === 'popular', fn($q) => $q->oldest())
+            ->when($sort === 'oldest', fn($q) => $q->orderByDesc('blogs_count'))
+            ->when(!in_array($sort, ['popular', 'oldest']), fn($q) => $q->latest())
             ->paginate(15)
             ->withQueryString();
 
-        // TOP AUTHORS (max 6)
         $topAuthors = User::query()
             ->where('type', 'author')
             ->withCount('blogs')
@@ -55,7 +49,7 @@ class CategoryController extends Controller
 
         $totalBlogs = $categories->getCollection()->sum('blogs_count');
 
-        return view('categories.index', compact('categories', 'topAuthors', 'tags','totalBlogs'));
+        return view('categories.index', compact('categories', 'topAuthors', 'tags', 'totalBlogs'));
     }
 
     public function show(Request $request, $slug): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
@@ -66,24 +60,15 @@ class CategoryController extends Controller
             ->withCount('blogs')
             ->firstOrFail();
 
-        $blogsQuery = Blog::query()
+        $blogs = Blog::query()
             ->with(['user', 'category'])
             ->where('category_id', $category->id)
-            ->Active();
+            ->Active()
+            ->when($sort === 'popular', fn($q) => $q->orderByDesc('view'))
+            ->when($sort === 'oldest', fn($q) => $q->oldest())
+            ->paginate(10)->withQueryString();
 
-        // sorting
-        if ($sort === 'popular') {
-            $blogsQuery->orderByDesc('view');
-        } elseif ($sort === 'oldest') {
-            $blogsQuery->orderBy('created_at');
-        } else {
-            $blogsQuery->latest();
-        }
-
-        $blogs = $blogsQuery->paginate(10)->withQueryString();
-
-        // featured blog (اولین مقاله)
-        $featuredBlog = Blog::query()
+        $latestBlog = Blog::query()
             ->with(['user', 'category'])
             ->where('category_id', $category->id)
             ->Active()
@@ -109,7 +94,6 @@ class CategoryController extends Controller
             ->limit(6)
             ->get();
 
-        // stats
         $totalViews = Blog::query()->where('category_id', $category->id)->sum('view');
 
         $lastPostDate = Blog::query()->where('category_id', $category->id)->latest()->value('created_at');
@@ -117,7 +101,7 @@ class CategoryController extends Controller
         return view('categories.show', compact(
             'category',
             'blogs',
-            'featuredBlog',
+            'latestBlog',
             'authors',
             'relatedCategories',
             'totalViews',
