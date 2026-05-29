@@ -62,4 +62,9 @@ class Blog extends Model
 
         return Storage::disk('public')->url('blogs/' . $this->cover);
     }
+
+    public function hashtags(): \Illuminate\Database\Eloquent\Relations\MorphToMany
+    {
+        return $this->morphToMany(Hashtag::class, 'model', 'model_has_hashtag', 'model_id', 'hashtags_id');
+    }
 }
