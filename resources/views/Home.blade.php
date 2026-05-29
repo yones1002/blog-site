@@ -34,7 +34,7 @@
     <section id="magazine">
         <div class="section-header">
             <h2 class="section-title">مجله</h2>
-            <a href="#" class="section-link">
+            <a target="_self" href="#" class="section-link">
                 همه مقالات
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M5 12h14M12 5l7 7-7 7"/>
@@ -120,7 +120,7 @@
     <section id="authors">
         <div class="section-header">
             <h2 class="section-title">نویسندگان</h2>
-            <a href="#" class="section-link">
+            <a target="_self" href="#" class="section-link">
                 همه نویسندگان
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M5 12h14M12 5l7 7-7 7"/>

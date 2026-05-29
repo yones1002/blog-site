@@ -44,7 +44,7 @@ class UserSeeder extends Seeder
         foreach ($authors as $name) {
             $authorUsers[] = User::create([
                 'name' => $name,
-                'type' => 'author',
+                'type' => 'authors',
                 'email' => fake()->unique()->safeEmail(),
                 'password' => Hash::make('password'),
                 'avatar' => $avatar(),

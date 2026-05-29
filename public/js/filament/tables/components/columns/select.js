@@ -4,8 +4,8 @@ var Ft=Math.min,vt=Math.max,Ht=Math.round;var st=n=>({x:n,y:n}),ji={left:"right"
 sortablejs/modular/sortable.esm.js:
   (**!
    * Sortable 1.15.6
-   * @author	RubaXa   <trash@rubaxa.org>
-   * @author	owenm    <owen23355@gmail.com>
+   * @authors	RubaXa   <trash@rubaxa.org>
+   * @authors	owenm    <owen23355@gmail.com>
    * @license MIT
    *)
 */

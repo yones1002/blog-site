@@ -8,7 +8,7 @@
     <nav>
         <ul class="nav-links">
             @foreach($menus as $menu)
-                <li><a href="{{ $menu->url }}">{{ $menu->title }}</a></li>
+                <li><a target="_self" href="{{ $menu->url }}">{{ $menu->title }}</a></li>
             @endforeach
         </ul>
 

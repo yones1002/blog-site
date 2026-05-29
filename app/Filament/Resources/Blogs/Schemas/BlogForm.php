@@ -165,7 +165,7 @@ class BlogForm
                     ->relationship(
                         'user',
                         'name',
-                        fn ($query) => $query->where('type', 'author')
+                        fn ($query) => $query->where('type', 'authors')
                     )
             ]);
     }

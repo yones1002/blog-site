@@ -56,7 +56,7 @@ class BlogsTable
                     ->label('زبان')
                     ->badge(),
 
-                TextColumn::make('author_id')
+                TextColumn::make('user.name')
                     ->label('نویسنده')
                     ->searchable(),
 

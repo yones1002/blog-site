@@ -25,7 +25,7 @@ class UserForm
                 Select::make('type')
                     ->label('نوع کاربر')
                     ->options([
-                        'author' => 'نویسنده',
+                        'authors' => 'نویسنده',
                         'member' => 'عضو',
                         'admin' => 'ادمین',
                     ])

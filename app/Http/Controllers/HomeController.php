@@ -19,7 +19,7 @@ class HomeController extends Controller
         $favorites = Blog::query()->with(['category','user'])->Active()->orderby('view','ASC')->latest()->limit(5)->get();
         // categories
         $categories = Category::query()->Active()->latest()->limit(4)->get();
-        //author
+        //authors
         $authors = User::query()->where('type','author')->latest()->limit(6)->get();
 
         return view('Home', compact('articles','favorites','categories','authors'));
