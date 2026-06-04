@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Blogs\Tables;
 
+use Filament\Actions\BulkAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -76,6 +77,17 @@ class BlogsTable
             ->toolbarActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
+                    BulkAction::make('activate')
+                        ->label('فعال‌سازی')
+                        ->action(fn ($records) => $records->each->update(['status' => 'active']))
+                        ->color('success')
+                        ->requiresConfirmation(),
+
+                    BulkAction::make('deactivate')
+                        ->label('غیرفعال کردن')
+                        ->action(fn ($records) => $records->each->update(['status' => 'inactive']))
+                        ->color('danger')
+                        ->requiresConfirmation(),
                 ]),
             ]);
     }

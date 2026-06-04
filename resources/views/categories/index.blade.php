@@ -3,7 +3,7 @@
 @section('content')
 
     <link href="{{ asset('css/front/category/list-category.css') }}" rel="stylesheet">
-
+    <link href="{{ asset('css/front/blog/list-blog.css') }}" rel="stylesheet">
     <div class="category-page">
 
         <!-- HEADER -->
@@ -153,9 +153,31 @@
                     </div>
                 @endforelse
 
-                <div class="bc-42">
-                    {{ $categories->links() }}
-                </div>
+                    @if($categories->hasPages())
+                        <div class="bl-24">
+
+                            @if ($categories->onFirstPage())
+                                <span class="bl-25">‹</span>
+                            @else
+                                <a target="_self" href="{{ $categories->previousPageUrl() }}" class="bl-26">‹</a>
+                            @endif
+
+                            @foreach ($categories->getUrlRange(max(1, $categories->currentPage()-2), min($categories->lastPage(), $categories->currentPage()+2)) as $page => $url)
+                                @if ($page == $categories->currentPage())
+                                    <span class="bl-27">{{ $page }}</span>
+                                @else
+                                    <a target="_self" href="{{ $url }}" class="bl-26">{{ $page }}</a>
+                                @endif
+                            @endforeach
+
+                            @if ($categories->hasMorePages())
+                                <a target="_self" href="{{ $categories->nextPageUrl() }}" class="bl-26">›</a>
+                            @else
+                                <span class="bl-25">›</span>
+                            @endif
+
+                        </div>
+                    @endif
 
             </div>
 
@@ -228,22 +250,7 @@
                     </div>
                 </div>
 
-                <!-- NEWSLETTER -->
-                <div class="bc-62">
-                    <div class="bc-63">خبرنامه</div>
-                    <div class="bc-64">از جدیدترین مقالات مطلع شوید</div>
-
-                    <form action="/newsletter" method="POST">
-                        @csrf
-                        <input type="email"
-                               name="email"
-                               class="bc-65"
-                               placeholder="ایمیل شما..."
-                               required>
-
-                        <button type="submit" class="bc-66">عضویت</button>
-                    </form>
-                </div>
+                @include('layout.register')
 
             </aside>
 

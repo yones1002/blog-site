@@ -124,13 +124,7 @@
                         @endforeach
                     </div>
                 </div>
-
-                <div class="sidebar-section newsletter-box">
-                    <h3 class="sidebar-title">خبرنامه</h3>
-                    <div class="newsletter-title">اخبار طراحی در صندوق ایمیل شما</div>
-                    <input type="email" class="newsletter-input" placeholder="ایمیل">
-                    <button class="btn-primary">ثبت‌نام</button>
-                </div>
+                @include('layout.register')
             </aside>
         </div>
     </section>

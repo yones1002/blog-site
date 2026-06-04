@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AuthorsController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoryController;
@@ -14,6 +15,9 @@ Route::get('/welcome', function () {
  */
 Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::group(['prefix' => 'auth'], function () {
+    Route::post('/newsletter/register', [AuthController::class, 'registerMember'])->name('auth.register.member');
+});
 /*
  * BLOGS PAGE
  */

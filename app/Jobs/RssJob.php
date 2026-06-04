@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Models\Blog;
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -49,22 +50,26 @@ class RssJob implements ShouldQueue
                 }
             }
 
-            Blog::query()->create([
-                'title' => $this->data['title'],
-                'slug' => $this->data['slug'],
-                'short_detail' => $this->data['short_detail'],
-                'long_detail' => $this->data['long_detail'],
-                'cover' => $imageName,
-                'mini_cover' => $imageName,
-                'type' => 'news',
-                'status' => 'inactive',
-                'lang' => 'fa',
-                'share_time' => now(),
-                'author_id' => 1,
-                'rss_link' => $this->data['link'],
+            $authors = User::query()->where('type','authors')->get();
 
-                'category_id' => $category?->id,
-            ]);
+            foreach ($authors as $author)
+            {
+                Blog::query()->create([
+                    'title' => $this->data['title'],
+                    'slug' => $this->data['slug'],
+                    'short_detail' => $this->data['short_detail'],
+                    'long_detail' => $this->data['long_detail'],
+                    'cover' => $imageName,
+                    'mini_cover' => $imageName,
+                    'type' => 'news',
+                    'status' => 'inactive',
+                    'lang' => 'fa',
+                    'share_time' => now(),
+                    'author_id' => $author->id,
+                    'rss_link' => $this->data['link'],
+                    'category_id' => $category?->id,
+                ]);
+            }
 
         } catch (\Throwable $e) {
             Log::error('RSS_JOB_FAILED', [

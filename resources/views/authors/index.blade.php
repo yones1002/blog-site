@@ -188,24 +188,6 @@
             @endif
         </section>
 
-        <!-- CTA -->
-        <section class="cta-section">
-            <div class="cta-section__inner">
-                <div class="cta-section__content">
-                    <div class="cta-section__icon">✍️</div>
-                    <h2 class="cta-section__title">نویسنده ما شوید!</h2>
-                    <p class="cta-section__text">
-                        {{ 'موجود نیست' }}
-                    </p>
-
-                    <div class="cta-section__actions">
-                        <a target="_self" href="/register" class="btn-primary">ثبت‌نام نویسنده</a>
-                        <a target="_self" href="/contact" class="btn-secondary">تماس با ما</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
     </div>
 
 @endsection

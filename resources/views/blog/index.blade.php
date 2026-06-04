@@ -238,23 +238,7 @@
                     </div>
                 </div>
 
-                <!-- Newsletter -->
-                <div class="bl-newsletter">
-                    <div class="bl-newsletter-title">خبرنامه</div>
-                    <div class="bl-newsletter-text">از جدیدترین مقالات مطلع شوید</div>
-
-                    <form action="/newsletter" method="POST">
-                        @csrf
-                        <input type="email" name="email"
-                               class="bl-newsletter-input"
-                               placeholder="ایمیل شما..."
-                               required>
-
-                        <button type="submit" class="bl-newsletter-btn">
-                            عضویت
-                        </button>
-                    </form>
-                </div>
+                @include('layout.register')
 
             </aside>
 
