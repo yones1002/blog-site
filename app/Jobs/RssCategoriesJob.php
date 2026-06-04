@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Models\Blog;
 use App\Models\Category;
+use App\Services\CategoryService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -20,13 +21,14 @@ class RssCategoriesJob implements ShouldQueue
 
     public function handle(): void
     {
+        $exists = Category::query()
+            ->where('slug', $this->data['slug'])
+            ->exists();
+        if ($exists) {
+            return;
+        }
         try {
-            Category::query()->create([
-                'name' => $this->data['slug'],
-                'fa_name' => $this->data['name'],
-                'slug' => $this->data['slug'],
-                'type' => Category::RSS_CATEGORY_ID,
-            ]);
+            CategoryService::store($this->data);
         } catch (\Throwable $e) {
             Log::error('RSS_CATEGORY_JOB_FAILED', [
                 'error' => $e->getMessage(),

@@ -51,6 +51,7 @@ class ImportNewsCommand extends Command
 
             $exists = Blog::query()
                 ->where('rss_link', $data['link'])
+                ->where('title', $data['title'])
                 ->exists();
 
             if ($exists) {
