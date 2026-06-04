@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AuthorsController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoryController;
+use App\Models\Blog;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/welcome', function () {
@@ -40,4 +41,13 @@ Route::group(['prefix' => 'categories'], function () {
 Route::group(['prefix' => 'authors'], function () {
     Route::get('/',[AuthorsController::class,'index'])->name('author.index');
     Route::get('/{id}',[AuthorsController::class,'show'])->name('author.show');
+});
+
+// for view mail ui for test to show admin
+Route::get('mail',function (){
+    $blog = Blog::find(304);
+    $title = $blog->title;
+    $body = $blog->short_detail;
+    $user = \App\Models\User::query()->find(48);
+    return view('mail.rss',compact('body','user','title','blog'));
 });
