@@ -2,12 +2,10 @@
 
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Schedule;
 
-Artisan::command('inspire', function () {
-    $this->comment(Inspiring::quote());
-    $this::command('app:import-news-command')->hourly();
-    $this::command('app:import-categories-command')->hourly();
-    $this::command('app:category-content-generate')->everyMinute();
-    $this::command('app:faq-generate')->everyMinute();
-    $this::command('app:seo-generate')->everyMinute();
-})->purpose('Display an inspiring quote');
+Schedule::command('app:import-news-command')->hourly();
+Schedule::command('app:import-categories-command')->hourly();
+Schedule::command('app:category-content-generate')->everyMinute();
+Schedule::command('app:faq-generate')->everyMinute();
+Schedule::command('app:seo-generate')->everyMinute();
