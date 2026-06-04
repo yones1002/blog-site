@@ -21,6 +21,9 @@ class SocialDetailCategoryAction implements AiCategoryDataGenerate
         $this->Generate = new DetailGenerate($this->category->fa_name);
     }
 
+    /**
+     * @return void
+     */
     public function createContent(): void
     {
         match ($this->mode) {
@@ -30,6 +33,9 @@ class SocialDetailCategoryAction implements AiCategoryDataGenerate
         };
     }
 
+    /**
+     * @return void
+     */
     public function createBoth(): void
     {
         $this->createDescriptionFa();
@@ -41,12 +47,21 @@ class SocialDetailCategoryAction implements AiCategoryDataGenerate
 
         $this->insertFa($fa);
     }
+
+    /**
+     * @return void
+     */
     public function createDescriptionEn(): void
     {
         $en = $this->Generate->makeEn();
 
         $this->insertEn($en);
     }
+
+    /**
+     * @param $message
+     * @return void
+     */
     public function insertFa($message): void
     {
         if (!$message) {
@@ -54,6 +69,11 @@ class SocialDetailCategoryAction implements AiCategoryDataGenerate
         }
         DetailService::updateFaContent($this->category->id, $message);
     }
+
+    /**
+     * @param $message
+     * @return void
+     */
     public function insertEn($message): void
     {
         if (!$message) {

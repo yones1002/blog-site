@@ -24,6 +24,9 @@ class SendRss implements ShouldQueue
         $this->blogId = $blogId;
     }
 
+    /**
+     * @return void
+     */
     public function handle(): void
     {
         $users = User::query()->where('type','admin')->get();

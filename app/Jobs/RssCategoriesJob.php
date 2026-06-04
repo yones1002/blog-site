@@ -19,6 +19,9 @@ class RssCategoriesJob implements ShouldQueue
 
     public function __construct(public array $data) {}
 
+    /**
+     * @return void
+     */
     public function handle(): void
     {
         $exists = Category::query()

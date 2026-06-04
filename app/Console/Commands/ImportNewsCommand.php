@@ -68,6 +68,10 @@ class ImportNewsCommand extends Command
         $this->info("Total imported: {$count}");
     }
 
+    /**
+     * @param $item
+     * @return array
+     */
     public function syncData($item): array
     {
         $title = trim((string) $item->title);

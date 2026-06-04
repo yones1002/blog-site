@@ -17,6 +17,9 @@ class SocialDetailAction implements AiDataGenerate
         $this->Generate = new DetailGenerate($this->blog->long_detail);
     }
 
+    /**
+     * @return void
+     */
     public function createSeo(): void
     {
         $seo = $this->Generate->makeSeo();
@@ -26,6 +29,10 @@ class SocialDetailAction implements AiDataGenerate
         }
         $this->insertSeo($seo);
     }
+
+    /**
+     * @return void
+     */
     public function createFaq(): void
     {
         $faq = $this->Generate->makeFaq();
@@ -35,6 +42,11 @@ class SocialDetailAction implements AiDataGenerate
         }
         $this->insertFaq($faq);
     }
+
+    /**
+     * @param $message
+     * @return void
+     */
     public function insertSeo($message): void
     {
         if (!is_array($message)) {
@@ -55,6 +67,11 @@ class SocialDetailAction implements AiDataGenerate
 
         DetailService::updateSeo($this->blog->id, $seo);
     }
+
+    /**
+     * @param array $faqs
+     * @return void
+     */
     public function insertFaq(array $faqs): void
     {
 

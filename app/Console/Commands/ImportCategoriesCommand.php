@@ -65,6 +65,10 @@ class ImportCategoriesCommand extends Command
         $this->info("Total imported: {$count}");
     }
 
+    /**
+     * @param $item
+     * @return array|null
+     */
     private function extractCategory($item): ?array
     {
         if (!isset($item->category)) {

@@ -22,6 +22,9 @@ class RssJob implements ShouldQueue
 
     public function __construct(public array $data) {}
 
+    /**
+     * @return void
+     */
     public function handle(): void
     {
         if (Blog::query()->where('rss_link', $this->data['link'])->exists()) {

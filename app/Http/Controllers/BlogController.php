@@ -9,6 +9,8 @@ use App\Models\Hashtag;
 use App\Models\Menu;
 use App\Models\User;
 use App\Traits\HasSearch;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use PharIo\Manifest\Author;
@@ -21,7 +23,12 @@ class BlogController extends Controller
         'title',
         'short_detail',
     ];
-    public function index(Request $request)
+
+    /**
+     * @param Request $request
+     * @return Factory|View
+     */
+    public function index(Request $request): Factory|View
     {
         $sort = $request->get('sort', 'newest');
 
@@ -45,7 +52,7 @@ class BlogController extends Controller
         ));
     }
 
-    public function show($type,$slug): \Illuminate\Contracts\View\View
+    public function show($type,$slug): View
     {
         $blog = Blog::query()->active()
             ->with(['hashtags', 'user'])

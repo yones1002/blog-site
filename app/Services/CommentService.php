@@ -7,6 +7,11 @@ use App\Models\Comment;
 
 class CommentService
 {
+    /**
+     * @param array $data
+     * @param int $blogId
+     * @return Comment
+     */
     public function store(array $data,int $blogId): Comment
     {
         return Comment::query()->create([

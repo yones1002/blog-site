@@ -16,6 +16,11 @@ use Illuminate\Support\Facades\Log;
  */
 class DetailService
 {
+    /**
+     * @param $blogId
+     * @param $massage
+     * @return int
+     */
     public static final function updateSeo($blogId, $massage): int
     {
         return Blog::query()->where('id', $blogId)
@@ -24,6 +29,11 @@ class DetailService
             ]);
     }
 
+    /**
+     * @param $blogId
+     * @param $faq
+     * @return int
+     */
     public static function updateFaq($blogId, $faq): int
     {
         return Blog::query()->where('id', $blogId)
@@ -32,6 +42,11 @@ class DetailService
             ]);
     }
 
+    /**
+     * @param $categoryId
+     * @param $fa
+     * @return int
+     */
     public static function updateFaContent($categoryId, $fa): int
     {
         return Category::query()->where('id', $categoryId)
@@ -39,6 +54,12 @@ class DetailService
                 'fa_description' => $fa,
             ]);
     }
+
+    /**
+     * @param $categoryId
+     * @param $en
+     * @return int
+     */
     public static function updateEnContent($categoryId, $en): int
     {
         return Category::query()->where('id', $categoryId)

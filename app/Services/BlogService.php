@@ -6,6 +6,13 @@ use App\Models\Blog;
 
 class BlogService
 {
+    /**
+     * @param $data
+     * @param $imageName
+     * @param $authorId
+     * @param $category
+     * @return Blog
+     */
     public static function store($data,$imageName,$authorId,$category): Blog
     {
         return Blog::query()->create([

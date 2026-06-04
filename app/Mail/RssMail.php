@@ -17,6 +17,9 @@ class RssMail extends Mailable
         public User $user
     ) {}
 
+    /**
+     * @return self
+     */
     public function build(): self
     {
         return $this

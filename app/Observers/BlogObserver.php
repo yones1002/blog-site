@@ -8,7 +8,8 @@ use App\Models\Blog;
 class BlogObserver
 {
     /**
-     * Handle the Blog "created" event.
+     * @param Blog $blog
+     * @return void
      */
     public function created(Blog $blog): void
     {

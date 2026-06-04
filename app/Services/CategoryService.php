@@ -3,10 +3,15 @@
 namespace App\Services;
 
 use App\Models\Category;
+use Illuminate\Database\Eloquent\Model;
 
 class CategoryService
 {
-    public static function store(array $data)
+    /**
+     * @param array $data
+     * @return Category|Model
+     */
+    public static function store(array $data): Model|Category
     {
         return Category::query()->create([
             'name' => $data['slug'],

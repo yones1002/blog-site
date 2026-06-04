@@ -2,6 +2,7 @@
 
 namespace App\Actions;
 
+use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
@@ -11,14 +12,29 @@ class GptAction
     {
     }
 
+    /**
+     * @param string $parmet
+     * @return string|null
+     */
     protected function execute(string $parmet): string|null
     {
         return $this->callWebService($parmet);
     }
+
+    /**
+     * @param string $prompt
+     * @return string|null
+     */
     public function ask(string $prompt): ?string
     {
         return $this->execute($prompt);
     }
+
+    /**
+     * @param $prompt
+     * @return string|null
+     * @throws ConnectionException
+     */
     private function callWebService($prompt): ?string
     {
         $response = Http::withHeaders([

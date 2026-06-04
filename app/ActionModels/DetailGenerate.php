@@ -11,6 +11,9 @@ class DetailGenerate extends GptAction
         parent::__construct($input);
     }
 
+    /**
+     * @return array|null
+     */
     public function makeSeo(): ?array
     {
         $parameter = "تو یک متخصص سئو هستی.
@@ -47,6 +50,9 @@ class DetailGenerate extends GptAction
         return $decoded;
     }
 
+    /**
+     * @return array|null
+     */
     public function makeFaq(): ?array
     {
         $parameter = "
@@ -85,6 +91,9 @@ class DetailGenerate extends GptAction
         return $decoded;
     }
 
+    /**
+     * @return string
+     */
     public function makeFa(): string
     {
         $parameter = "

@@ -6,12 +6,18 @@ use App\Models\Blog;
 use App\Models\Category;
 use App\Models\Menu;
 use App\Models\User;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use PharIo\Manifest\Author;
 
 class HomeController extends Controller
 {
-    public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    /**
+     * @param Request $request
+     * @return Factory|View
+     */
+    public function index(Request $request): Factory|View
     {
         // article
         $articles = Blog::query()->where('type','article')->with(['category','user'])->Active()->latest()->limit(6)->get();

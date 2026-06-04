@@ -8,6 +8,8 @@ use App\Models\Hashtag;
 use App\Models\Menu;
 use App\Models\User;
 use App\Traits\HasSearch;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use PharIo\Manifest\Author;
@@ -21,7 +23,11 @@ class CategoryController extends Controller
         'name',
     ];
 
-    public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    /**
+     * @param Request $request
+     * @return Factory|View
+     */
+    public function index(Request $request): Factory|View
     {
         $sort = $request->sort ?? 'newest';
 
@@ -52,7 +58,7 @@ class CategoryController extends Controller
         return view('categories.index', compact('categories', 'topAuthors', 'tags', 'totalBlogs'));
     }
 
-    public function show(Request $request, $slug): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    public function show(Request $request, $slug): Factory|View
     {
         $sort = $request->get('sort', 'newest');
 

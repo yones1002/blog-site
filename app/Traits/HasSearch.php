@@ -4,7 +4,12 @@ namespace App\Traits;
 
 trait HasSearch
 {
-    public function scopeSearch($query, ?string $search)
+    /**
+     * @param $query
+     * @param string|null $search
+     * @return mixed
+     */
+    public function scopeSearch($query, ?string $search): mixed
     {
         if (!$search) {
             return $query;
