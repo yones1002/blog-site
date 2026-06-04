@@ -26,6 +26,10 @@ class CategoryResource extends Resource
     protected static ?string $recordTitleAttribute = 'دسته بندی ها';
     protected static ?string $modelLabel = 'دسته بندی ها';
     protected static ?string $pluralModelLabel = 'دسته بندی ها';
+    public static function getNavigationBadge(): ?string
+    {
+        return self::$model::query()->count();
+    }
     public static function form(Schema $schema): Schema
     {
         return CategoryForm::configure($schema);

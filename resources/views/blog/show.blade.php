@@ -100,17 +100,6 @@
                     </div>
                 </div>
             @endif
-            <!-- Tags -->
-            <div class="bs-13">
-                <h3 class="bs-14">برچسب‌ها</h3>
-                <div class="bs-15">
-                    @foreach($blog->hashtags as $tag)
-                        <a target="_self" href="#" class="bs-16">
-                            {{$tag->fa_name}}
-                        </a>
-                    @endforeach
-                </div>
-            </div>
 
             <!-- Share Buttons -->
             <div class="bs-17">
@@ -137,38 +126,45 @@
                     نظرات <span class="bs-30">(0)</span>
                 </h3>
 
-                <!-- Comment Form -->
-                <form action="#" method="POST" class="bs-31">
+                <!-- Comment.php Form -->
+                <form id="commentForm" class="bs-31">
                     @csrf
+                    <input type="hidden" name="blog_id" value="{{ $blog->id }}">
+
                     <div class="bs-32">
                         <input type="text" name="name" placeholder="نام شما" required class="bs-33">
                         <input type="email" name="email" placeholder="ایمیل" required class="bs-33">
                     </div>
-                    <textarea name="body" rows="5" placeholder="نظر خود را بنویسید..." required class="bs-34"></textarea>
-                    <button type="submit" class="bs-35">
-                        ارسال نظر
-                    </button>
+
+                    <textarea name="comment" rows="5" placeholder="نظر خود را بنویسید..." required class="bs-34"></textarea>
+
+                    <button type="submit" class="bs-35">ارسال نظر</button>
+
+                    <div id="commentMsg" style="margin-top:10px;"></div>
                 </form>
 
                 <!-- Comments List -->
-{{--                @foreach($blog->comments as $comment)--}}
-{{--                    <div class="bs-36">--}}
-{{--                        <div class="bs-37">--}}
-{{--                            <div class="bs-38">--}}
-{{--                                <div class="bs-39">--}}
-{{--                                    {{mb_substr($comment->name, 0, 1)}}--}}
-{{--                                </div>--}}
-{{--                                <div>--}}
-{{--                                    <div class="bs-40">{{$comment->name}}</div>--}}
-{{--                                    <div class="bs-41">{{$comment->created_at->diffForHumans()}}</div>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        <p class="bs-42">--}}
-{{--                            {{$comment->body}}--}}
-{{--                        </p>--}}
-{{--                    </div>--}}
-{{--                @endforeach--}}
+                @forelse($comments as $comment)
+                    <div class="bs-36">
+                        <div class="bs-37">
+                            <div class="bs-38">
+                                <div class="bs-39">
+                                    {{ mb_substr($comment->name, 0, 1) }}
+                                </div>
+                                <div>
+                                    <div class="bs-40">{{ $comment->name }}</div>
+                                    <div class="bs-41">{{ $comment->created_at->diffForHumans() }}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="bs-42">
+                            {{ $comment->content }}
+                        </p>
+                    </div>
+                @empty
+                    <p>هنوز کامنتی ثبت نشده</p>
+                @endforelse
             </div>
 
         </article>
@@ -199,7 +195,7 @@
             <div class="bs-50">
                 <h3 class="bs-14">مقالات مرتبط</h3>
                 <div class="bs-51">
-                    @foreach($relatedBlogs as $related)
+                    @foreach($otherBlog['relatedBlogs'] as $related)
                         <a target="_self" href="/blog/{{$related->type}}/{{$related->slug}}" class="bs-52">
                             <div class="bs-53">
                                 <img src="{{$related->cover_url}}" alt="{{$related->title}}" class="bs-23">
@@ -221,7 +217,7 @@
                 <h3 class="bl-33">
                     برچسب‌های مرتبط</h3>
                 <div class="bl-44">
-                    @foreach($relatedTags as $relatedTag)
+                    @foreach($tags as $relatedTag)
                         <a target="_self" href="#"
                            class="bl-45">{{$relatedTag->fa_name}}</a>
                     @endforeach
@@ -235,24 +231,53 @@
     <!-- Next/Prev Navigation -->
     <section class="bs-60">
         <div class="bs-61">
-            @if($prevBlog)
-                <a target="_self" href="/blog/{{$prevBlog->type}}/{{$prevBlog->slug}}" class="bs-62">
+            @if($otherBlog['prevBlog'])
+                <a target="_self" href="/blog/{{$otherBlog['prevBlog']->type}}/{{$otherBlog['prevBlog']->slug}}" class="bs-62">
                     <div class="bs-63">مقاله قبلی</div>
-                    <div class="bs-64">{{$prevBlog->title}}</div>
+                    <div class="bs-64">{{$otherBlog['prevBlog']->title}}</div>
                 </a>
             @else
                 <div></div>
             @endif
 
-            @if($nextBlog)
-                <a target="_self" href="/blog/{{$nextBlog->type}}/{{$nextBlog->slug}}" class="bs-62">
+            @if($otherBlog['nextBlog'])
+                <a target="_self" href="/blog/{{$otherBlog['nextBlog']->type}}/{{$otherBlog['nextBlog']->slug}}" class="bs-62">
                     <div class="bs-63">مقاله بعدی</div>
-                    <div class="bs-64">{{$nextBlog->title}}</div>
+                    <div class="bs-64">{{$otherBlog['nextBlog']->title}}</div>
                 </a>
             @else
                 <div></div>
             @endif
         </div>
     </section>
+    <script>
+        document.getElementById('commentForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
 
+            const form = e.target;
+            const msgBox = document.getElementById('commentMsg');
+
+            msgBox.innerHTML = 'در حال ارسال...';
+
+            const response = await fetch("{{ route('comment.store', $blog->id) }}", {
+                method: "POST",
+                headers: {
+                    "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                    "Accept": "application/json",
+                },
+                body: new FormData(form)
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                msgBox.style.color = 'green';
+                msgBox.innerHTML = data.message;
+                form.reset();
+            } else {
+                msgBox.style.color = 'red';
+                msgBox.innerHTML = data.message ?? 'خطا';
+            }
+        });
+    </script>
 @endsection
