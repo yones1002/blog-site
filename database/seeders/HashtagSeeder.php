@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Blog;
 use Illuminate\Database\Seeder;
 use App\Models\Hashtag;
+use Illuminate\Support\Facades\DB;
 
 class HashtagSeeder extends Seeder
 {
@@ -93,20 +94,19 @@ class HashtagSeeder extends Seeder
             ],
         ];
 
+        $blog = Blog::query()->get();
         foreach ($hashtags as $tag) {
-            Hashtag::firstOrCreate(
+            $new = Hashtag::firstOrCreate(
                 ['slug' => $tag['slug']],
                 $tag
             );
-        }
-
-        $hashtags = Hashtag::all();
-
-        Blog::chunk(50, function ($blogs) use ($hashtags) {
-            foreach ($blogs as $blog) {
-                $randomTags = $hashtags->random(rand(1, 3))->pluck('id')->toArray();
-                $blog->hashtags()->syncWithoutDetaching($randomTags);
+            foreach ($blog as $item) {
+                DB::table('model_has_hashtag')->insertOrIgnore([
+                    'hashtags_id' => $new->id,
+                    'model_type' => Blog::class,
+                    'model_id' => $item->id,
+                ]);
             }
-        });
+        }
     }
 }
