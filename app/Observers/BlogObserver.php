@@ -21,7 +21,8 @@ class BlogObserver
      */
     public function updated(Blog $blog): void
     {
-        //
+        SendRss::dispatch($blog->id)
+            ->delay(now()->addSeconds(5));
     }
 
     /**
