@@ -35,7 +35,7 @@ class CategoryController extends Controller
             ->withQueryString();
 
         $topAuthors = User::query()
-            ->where('type', 'author')
+            ->where('type', 'authors')
             ->withCount('blogs')
             ->orderByDesc('blogs_count')
             ->limit(6)
