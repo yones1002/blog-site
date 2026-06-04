@@ -74,7 +74,32 @@
             <div class="article-body bs-12">
                 {!! $blog->long_detail !!}
             </div>
+            @php
+                $faqs = is_string($blog->faq)
+                    ? json_decode($blog->faq, true)
+                    : $blog->faq;
+            @endphp
 
+            @if(!empty($faqs))
+                <div class="bs-faq">
+                    <h3 class="bs-faq-title">سوالات متداول</h3>
+
+                    <div class="bs-faq-list">
+                        @foreach($faqs as $faq)
+                            <details class="bs-faq-item">
+                                <summary class="bs-faq-question">
+                                    {{ $faq['question'] }}
+                                    <span class="bs-faq-icon">+</span>
+                                </summary>
+
+                                <div class="bs-faq-answer">
+                                    {!! ($faq['answer']) !!}
+                                </div>
+                            </details>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
             <!-- Tags -->
             <div class="bs-13">
                 <h3 class="bs-14">برچسب‌ها</h3>
