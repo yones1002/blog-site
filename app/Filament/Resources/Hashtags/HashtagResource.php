@@ -26,7 +26,10 @@ class HashtagResource extends Resource
     protected static ?string $recordTitleAttribute = 'برچسب';
     protected static ?string $modelLabel = 'برچسب';
     protected static ?string $pluralModelLabel = 'برچسب ها';
-
+    public static function getNavigationBadge(): ?string
+    {
+        return self::$model::query()->count();
+    }
     public static function form(Schema $schema): Schema
     {
         return HashtagForm::configure($schema);

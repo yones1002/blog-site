@@ -361,3 +361,165 @@
 .bs-64 {
     font-size: 18px; font-weight: 700; color: #fff; line-height: 1.4;
 }
+/* ============================================
+   ARTICLE FAQ STYLES (MATCHED WITH THEME)
+   ============================================ */
+
+.bs-faq {
+    margin: 40px 0;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 24px;
+    direction: rtl;
+    text-align: right;
+}
+
+.bs-faq-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 25px;
+    margin-top: 0;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* خط تزیینی کنار عنوان */
+.bs-faq-title::before {
+    content: '';
+    width: 4px;
+    height: 20px;
+    background: linear-gradient(to bottom, #ff6b6b, #feca57);
+    border-radius: 4px;
+}
+
+.bs-faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* استایل کلی هر آیتم آکاردئون */
+.bs-faq-item {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+/* حالت هاور آیتم‌ها */
+.bs-faq-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 107, 107, 0.2);
+}
+
+/* زمانی که آکاردئون باز است */
+.bs-faq-item[open] {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 107, 107, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* بخش سوال (Summary) */
+.bs-faq-question {
+    padding: 18px 20px;
+    font-size: 15px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none; /* حذف فلش پیش‌فرض مرورگر */
+    user-select: none;
+    transition: color 0.3s ease;
+}
+
+/* حذف فلش پیش‌فرض در مرورگرهای مبتنی بر Safari/Chrome */
+.bs-faq-question::-webkit-details-marker {
+    display: none;
+}
+
+.bs-faq-item:hover .bs-faq-question {
+    color: #fff;
+}
+
+/* آیکون مثبت و منفی سمت چپ */
+.bs-faq-icon {
+    width: 28px;
+    height: 28px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ff6b6b;
+    font-size: 18px;
+    font-weight: 400;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-shrink: 0;
+}
+
+/* تغییر استایل آیکون در حالت هاور */
+.bs-faq-item:hover .bs-faq-icon {
+    background: rgba(255, 107, 107, 0.1);
+    border-color: rgba(255, 107, 107, 0.3);
+}
+
+/* چرخاندن آیکون وقتی آکاردئون باز میشه (تبدیل + به ×) */
+.bs-faq-item[open] .bs-faq-icon {
+    transform: rotate(135deg);
+    background: linear-gradient(135deg, #ff6b6b, #feca57);
+    color: #000;
+    border-color: transparent;
+    font-weight: 700;
+}
+
+/* بخش پاسخ (محتوا) */
+.bs-faq-answer {
+    padding: 0 20px 20px 20px;
+    font-size: 14px;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.7);
+    border-top: 1px solid transparent;
+    animation: fadeInSlider 0.4s ease-in-out;
+}
+
+/* ایجاد یک خط جداکننده نرم در زمان باز شدن */
+.bs-faq-item[open] .bs-faq-answer {
+    border-top-color: rgba(255, 255, 255, 0.05);
+    margin-top: 2px;
+    padding-top: 16px;
+}
+
+/* انیمیشن نرم برای باز شدن محتوا */
+@keyframes fadeInSlider {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* بهینه‌سازی ریسپانسیو */
+@media (max-width: 768px) {
+    .bs-faq {
+        padding: 20px;
+        margin: 30px 0;
+    }
+    .bs-faq-question {
+        padding: 14px 16px;
+        font-size: 14px;
+    }
+    .bs-faq-answer {
+        padding: 0 16px 16px 16px;
+    }
+}

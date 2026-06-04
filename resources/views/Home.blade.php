@@ -5,34 +5,35 @@
     <!-- ===== HERO SECTION ===== -->
     <section class="hero-section">
         <div class="hero-content">
-            <h1 class="hero-title">{{$slider->title}}</h1>
+            <h1 class="hero-title">{{$slider->title ?? 'موجود نیست'}}</h1>
             <p class="hero-excerpt"
                style="font-size: 18px; line-height: 1.8; color: rgba(255,255,255,0.6); margin-top: 20px;">
-                {{$slider->short_detail}}
+                {{$slider->short_detail ?? 'موجود نیست'}}
             </p>
             <div class="hero-meta">
                 <div class="meta-item">
                     <span class="meta-label">نویسنده</span>
-                    <span class="meta-value">{{$slider->user->name}}</span>
+                    <span class="meta-value">{{$slider->user->name ?? 'موجود نیست'}}</span>
                 </div>
                 <div class="meta-item">
                     <span class="meta-label">تاریخ</span>
-                    <span class="meta-value">{{$slider->share_time}}</span>
+                    <span class="meta-value">{{$slider->share_time ?? 'موجود نیست'}}</span>
                 </div>
                 <div class="meta-item">
                     <span class="meta-label">مدت</span>
                     <span class="meta-value">۱ دقیقه</span>
                 </div>
             </div>
-            <a href="{{ route('category.show', ['slug' => $slider->category->slug]) }}">
-                <span class="hero-badge">{{$slider->category->fa_name}}</span>
+            <a href="{{ route('category.show', ['slug' => $slider->category->slug ?? 'test'])}}">
+                <span class="hero-badge">{{$slider->category->fa_name ?? 'موجود نیست'}}</span>
             </a>
-            <a href="{{ route('blogs.show',[$slider->type,$slider->slug]) }}" class="btn-primary">نمایش</a>
+            <a href="{{ route('blogs.show',[$slider->type ?? 'test', $slider->slug ?? 'test']) }}" class="btn-primary">نمایش</a>
         </div>
         <div class="hero-image">
-            <img src="{{ $slider->cover_url }}" alt="{{ $slider->title }}">
+            <img src="{{ $slider->cover_url ?? '' }}" alt="{{ $slider->title ?? '' }}">
         </div>
     </section>
+
     <!-- ===== ARTICLES SECTION ===== -->
     <section id="magazine">
         <div class="section-header">
@@ -50,29 +51,33 @@
                 @foreach($articles as $article)
                     <article class="article-card">
                         <div class="article-image">
-                            <img src="{{ $article->cover_url }}" alt="{{ $article->title }}">
+                            <img src="{{ $article->cover_url ?? '' }}" alt="{{ $article->title ?? '' }}">
                         </div>
                         <div class="article-content">
                             <div>
-                                <a target="_self" href="{{ route('blogs.show', ['type' => $article->type, 'slug' => $article->slug]) }}" class="bl-19">
-                                    <h3 class="article-title">{{$article->title}}</h3>
+                                <a target="_self" href="{{ route('blogs.show', ['type' => $article->type ?? 'test', 'slug' => $article->slug ?? 'test']) }}" class="bl-19">
+                                    <h3 class="article-title">{{$article->title ?? 'موجود نیست'}}</h3>
                                 </a>
-                                <p class="article-excerpt">{{$article->short_detail}}</p>
+                                <p class="article-excerpt">{{$article->short_detail ?? 'موجود نیست'}}</p>
                             </div>
                             <div class="article-meta">
                                 <div class="article-meta-left">
-                                    <div class="meta-item"><span class="meta-label">نویسنده</span><span
-                                            class="meta-value">{{$article->user->name}}</span>
+                                    <div class="meta-item">
+                                        <span class="meta-label">نویسنده</span>
+                                        <span class="meta-value">{{optional($article->user)->name ?? 'موجود نیست'}}</span>
                                     </div>
-                                    <div class="meta-item"><span class="meta-label"> تاریخ انتشار</span><span
-                                            class="meta-value">{{$article->share_time}}</span>
+                                    <div class="meta-item">
+                                        <span class="meta-label">تاریخ انتشار</span>
+                                        <span class="meta-value">{{$article->share_time ?? 'موجود نیست'}}</span>
                                     </div>
-                                    <a href="{{ route('blogs.show',[$slider->type,$slider->slug]) }}" >
+
+                                    <a href="{{ route('blogs.show',[$article->type ?? '', $article->slug ?? '']) }}">
                                         <span class="hero-badge">نمایش</span>
                                     </a>
                                 </div>
-                                <a href="{{ route('category.show', ['slug' => $article->category->slug]) }}">
-                                    <span class="hero-badge">{{$article->category->fa_name}}</span>
+
+                                <a href="{{ route('category.show', ['slug' => optional($article->category)->slug]) }}">
+                                    <span class="hero-badge">{{optional($article->category)->fa_name ?? 'موجود نیست'}}</span>
                                 </a>
                             </div>
                         </div>
@@ -91,8 +96,8 @@
                                 </div>
 
                                 <div class="popular-text">
-                                    <a target="_self" href="{{ route('category.show', ['slug' => $category->slug]) }}" class="bl-19">
-                                        {{ $category->fa_name }}
+                                    <a target="_self" href="{{ route('category.show', ['slug' => $category->slug ?? '']) }}" class="bl-19">
+                                        {{ $category->fa_name ?? 'موجود نیست' }}
                                     </a>
                                 </div>
                             </div>
@@ -111,21 +116,15 @@
                                 </div>
 
                                 <div class="popular-text">
-                                    <a target="_self" href="{{ route('blogs.show', ['type' => $favorite->type, 'slug' => $favorite->slug]) }}" class="bl-19">
-                                        {{ $favorite->title }}
+                                    <a target="_self" href="{{ route('blogs.show', ['type' => $favorite->type ?? '', 'slug' => $favorite->slug ?? '']) }}" class="bl-19">
+                                        {{ $favorite->title ?? 'موجود نیست' }}
                                     </a>
                                 </div>
                             </div>
                         @endforeach
                     </div>
                 </div>
-
-                <div class="sidebar-section newsletter-box">
-                    <h3 class="sidebar-title">خبرنامه</h3>
-                    <div class="newsletter-title">اخبار طراحی در صندوق ایمیل شما</div>
-                    <input type="email" class="newsletter-input" placeholder="ایمیل">
-                    <button class="btn-primary">ثبت‌نام</button>
-                </div>
+                @include('layout.register')
             </aside>
         </div>
     </section>
@@ -146,13 +145,13 @@
             @foreach($authors as $author)
                 <div class="author-card">
                     <div class="author-avatar">
-                        <img src="{{$author->avatar}}" alt="{{$author->name}}">
+                        <img src="{{$author->avatar ?? ''}}" alt="{{$author->name ?? ''}}">
                     </div>
                     <div class="author-info">
-                        <h3>{{$author->name}}</h3>
+                        <h3>{{$author->name ?? 'موجود نیست'}}</h3>
                     </div>
                     <div class="author-info">
-                        <a style="float: left" href="{{ route('author.show',[$author->id]) }}"
+                        <a style="float: left" href="{{ route('author.show',[$author->id ?? 0]) }}"
                            class="btn-primary">نمایش</a>
                     </div>
                 </div>

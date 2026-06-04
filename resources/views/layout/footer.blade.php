@@ -5,9 +5,14 @@
         <div class="footer-top">
             <h2 class="footer-title">اخبار طراحی در صندوق ایمیل شما</h2>
             <div class="footer-subscribe">
-                <input type="email" class="footer-input" placeholder="ایمیل">
-                <button class="footer-btn">ثبت‌نام</button>
+                <form id="footerNewsletterForm">
+                    @csrf
+                    <input type="email" name="email" class="footer-input" placeholder="ایمیل" required>
+                    <button type="submit" class="footer-btn">ثبت‌نام</button>
+                </form>
             </div>
+
+            <div id="footerToast" class="toast hidden"></div>
         </div>
 
         <div class="footer-bottom">
@@ -40,4 +45,42 @@
             </div>
         </div>
     </div>
+    <script>
+        const footerToast = document.getElementById('footerToast');
+
+        function showFooterToast(message, type = 'success') {
+            footerToast.className = `toast ${type}`;
+            footerToast.innerText = message;
+
+            setTimeout(() => footerToast.classList.remove('hidden'), 50);
+
+            setTimeout(() => footerToast.classList.add('hidden'), 2500);
+        }
+
+        document.getElementById('footerNewsletterForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            let formData = new FormData(this);
+
+            fetch("{{ url('/auth/newsletter/register') }}", {
+                method: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('input[name=_token]').value
+                },
+                body: formData
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        showFooterToast(data.message, 'success');
+                        this.reset();
+                    } else {
+                        showFooterToast(data.message, 'error');
+                    }
+                })
+                .catch(() => {
+                    showFooterToast('شما قبلا ثبت نام شده اید.', 'error');
+                });
+        });
+    </script>
 </footer>

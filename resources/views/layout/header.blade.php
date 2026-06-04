@@ -7,9 +7,17 @@
 
     <nav>
         <ul class="nav-links">
-            @foreach($menus as $menu)
-                <li><a target="_self" href="{{ $menu->url }}">{{ $menu->title }}</a></li>
-            @endforeach
+            @forelse($menus as $menu)
+                <li>
+                    <a target="_self" href="{{ $menu->url }}">
+                        {{ $menu->title }}
+                    </a>
+                </li>
+            @empty
+                <li>
+                    <span>منویی موجود نیست</span>
+                </li>
+            @endforelse
         </ul>
 
         <div class="social-icons">

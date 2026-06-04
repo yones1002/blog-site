@@ -69,7 +69,6 @@ class UserSeeder extends Seeder
             ]);
         }
 
-        // وصل کردن بلاگ‌ها به نویسنده‌ها
         $blogs = Blog::all();
 
         foreach ($blogs as $blog) {

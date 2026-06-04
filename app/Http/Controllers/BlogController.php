@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Blog;
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Hashtag;
 use App\Models\Menu;
 use App\Models\User;
@@ -47,15 +48,35 @@ class BlogController extends Controller
     public function show($type,$slug): \Illuminate\Contracts\View\View
     {
         $blog = Blog::query()->active()
+            ->with(['hashtags', 'user'])
             ->whereType($type)
             ->whereSlug($slug)
             ->firstOrFail();
-
         $blog->increment('view');
+
         $categories = Category::query()->withCount('blogs')->where('status','active')->latest()->limit(8)->get();
 
-        $favorites = Blog::query()->with(['category','user'])->Active()->orderby('view','ASC')->latest()->limit(5)->get();
+        $otherBlog = $this->other($blog);
 
+        $tags = $this->tags();
+
+        $comments = Comment::query()->where('model_id', $blog->id)
+            ->where('model_type', Blog::class)
+            ->orderByDesc('pinned')
+            ->latest()
+            ->get();
+
+        return view('blog.show', compact(
+            'blog',
+            'categories',
+            'otherBlog',
+            'tags',
+            'comments',
+        ));
+    }
+
+    protected function other(Blog $blog): array
+    {
         $relatedBlogs = Blog::with(['category', 'user'])->active()->where('category_id', $blog->category_id)->where('id', '!=', $blog->id)
             ->latest()
             ->limit(4)
@@ -71,9 +92,20 @@ class BlogController extends Controller
 
         $nextBlog = Blog::query()->Active()->where('id', '>', $blog->id)->oldest('id')->first();
 
-        $tagIds = DB::table('model_has_hashtag')->where('model_type', Blog::class)->inRandomOrder()->limit(6)->pluck('hashtags_id');
-        $relatedTags = Hashtag::query()->whereIn('id', $tagIds)->get();
+        return [
+            'relatedBlogs' => $relatedBlogs,
+            'prevBlog' => $prevBlog,
+            'nextBlog' => $nextBlog,
+        ];
+    }
 
-        return view('blog.show', compact('blog','categories','favorites','relatedBlogs','prevBlog','nextBlog','relatedTags'));
+    public function tags(): \Illuminate\Database\Eloquent\Collection
+    {
+        $tagIds = DB::table('model_has_hashtag')
+            ->where('model_type', Blog::class)
+            ->inRandomOrder()->limit(6)
+            ->pluck('hashtags_id');
+
+        return Hashtag::query()->whereIn('id', $tagIds)->get();
     }
 }

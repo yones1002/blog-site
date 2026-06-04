@@ -25,6 +25,10 @@ class BlogResource extends Resource
     protected static ?string $recordTitleAttribute = 'وبلاگ';
     protected static ?string $modelLabel = 'بلاگ';
     protected static ?string $pluralModelLabel = 'بلاگ‌ها';
+    public static function getNavigationBadge(): ?string
+    {
+        return self::$model::query()->count();
+    }
     public static function form(Schema $schema): Schema
     {
         return BlogForm::configure($schema);

@@ -24,7 +24,10 @@ class MenuResource extends Resource
     protected static ?string $recordTitleAttribute = 'منو';
     protected static ?string $modelLabel = 'منو';
     protected static ?string $pluralModelLabel = 'منو';
-
+    public static function getNavigationBadge(): ?string
+    {
+        return self::$model::query()->count();
+    }
     public static function form(Schema $schema): Schema
     {
         return MenuForm::configure($schema);
