@@ -626,8 +626,11 @@ blog/
 
 **Younes Sahraei**
 
-[![GitLab](https://img.shields.io/badge/GitLab-@younes8102-FC6D26?style=flat&logo=gitlab)](https://gitlab.com/younes8102)
-[![Project](https://img.shields.io/badge/Project-Fyrre%20Magazine-181717?style=flat&logo=gitlab)](https://gitlab.com/younes8102/blog)
+## 🔗 Source Code & Profile
+
+[![GitHub](https://img.shields.io/badge/GitHub-Source_Code-181717?style=for-the-badge&logo=github)](https://github.com/yones1002)
+
+[![GitLab](https://img.shields.io/badge/GitLab-Original_Project-FC6D26?style=for-the-badge&logo=gitlab)](https://gitlab.com/younes8102)
 
 ---
 
